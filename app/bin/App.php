@@ -88,7 +88,7 @@ class App
         // Manually changing the language
         if (isset($_GET['language'])) {
             // But again, only if it's English or Welsh.
-            if (strtolower($_GET['language']) === 'en' || strtolower($_GET['language']) === 'cy') {
+            if (strtolower($_GET['language']) === 'cy') {
                 $this->saveLanguage('cy');
             } else {
                 // Any cheeky business defaults to English.

@@ -10,4 +10,4 @@ require_once __DIR__ . '/bin/Bootstrap.php';
  * I mean this is VERY temporary. Because this is ugly. Dogshit ugly.
  * More information inside the /templates/demonstrationrouter.php file.
  */
-require_once __DIR__ . '/templates/demonstrationrouter.php';
+require_once __DIR__ . '/templates/DemonstrationRouter.php';

@@ -3,20 +3,24 @@
 namespace App;
 
 use App\Database\DatabaseConnection;
+use App\i18n\LocaleLoader;
 
 require_once __DIR__ . '/Database/DatabaseConnection.php';
+require_once __DIR__ . '/i18n/LocaleLoader.php';
 
 class App
 {
     private $config = array();
     private $db;
     private $language;
+    private $i18n;
 
     public function __construct()
     {
         $this->config = require_once __DIR__ . '/Config/Config.php';
         $this->db = DatabaseConnection::getInstance($this->getConfig());
         $this->setLanguage();
+        $this->i18n = LocaleLoader::loadLocale($this->getLanguage());
     }
 
     public function hello()
@@ -49,6 +53,19 @@ class App
     {
         if (!is_null($this->config[$entry])) {
             return $this->config[$entry];
+        }
+        return null;
+    }
+
+    public function getLocale()
+    {
+        return $this->i18n;
+    }
+
+    public function getLocaleString($param)
+    {
+        if (isset($this->i18n[$param])) {
+            return $this->i18n[$param];
         }
         return null;
     }

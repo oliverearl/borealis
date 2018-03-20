@@ -2,7 +2,6 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php"><?= $app->getAppName(); ?></a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="index.php?p=about">About</a>
             <?= ($app->getLanguage() === 'en'
                 ? '<a class="nav-link" href="index.php?language=cy">' . "{$app->getLocaleString('welsh')}</a>"
                 : '<a class="nav-link" href="index.php?language=en">' . "{$app->getLocaleString('english')}</a>"); ?>

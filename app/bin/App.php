@@ -23,11 +23,6 @@ class App
         $this->i18n = LocaleLoader::loadLocale($this->getLanguage());
     }
 
-    public function hello()
-    {
-        echo 'Hello World';
-    }
-
     /**
      * @return DatabaseConnection
      */

@@ -16,12 +16,14 @@ class Magnetometer extends DataSource
     private $timestamp;
     private $value;
     private $temp;
+    private $lastModified;
 
-    private function __construct($timeParam, $valueParam, $tempParam)
+    private function __construct($timeParam, $valueParam, $tempParam, $lastModifiedParam)
     {
         $this->timestamp    = $this->convertToUnix($timeParam);
         $this->value        = $valueParam;
         $this->temp         = $tempParam;
+        $this->lastModified = $lastModifiedParam;
     }
 
     /**
@@ -78,6 +80,14 @@ class Magnetometer extends DataSource
     public function setTemp($temp)
     {
         $this->temp = $temp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
     }
 
     private function convertToUnix($lvTimestamp)

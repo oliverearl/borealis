@@ -36,22 +36,24 @@ if (is_null($app)) {
     <?php require_once __DIR__ . '/partial/Header.phtml'; ?>
     <div class="container-fluid">
         <?php require_once __DIR__ . '/partial/Navigation.phtml'; ?>
-        <?php
-        if (isset($_GET['p'])) {
+        <?php if (isset($_GET['p'])) {
             switch(strtolower($_GET['p'])) {
                 case 'settings':
                     require_once __DIR__ . '/Settings.phtml';
                     break;
                 case 'graph':
+                    require_once __DIR__ . '/../bin/Functions/Grapher.php';
                     require_once __DIR__ . '/Graph.phtml';
                     break;
                 default:
                     require_once __DIR__ . '/Home.phtml';
             }
+        } else if (isset($_GET['graph']) && is_numeric($_GET['graph'])) {
+            require_once __DIR__ . '/../bin/Functions/Grapher.php';
+            require_once __DIR__ . '/Graph.phtml';
         } else {
             require_once __DIR__ . '/Home.phtml';
-        }
-        ?>
+        } ?>
         <?php require_once __DIR__ . '/partial/Scripts.phtml'; ?>
     </div>
 </body>

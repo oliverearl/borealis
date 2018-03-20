@@ -10,7 +10,7 @@ require_once __DIR__ . '/i18n/LocaleLoader.php';
 
 class App
 {
-    private $config = array();
+    private $config;
     private $db;
     private $language;
     private $i18n;

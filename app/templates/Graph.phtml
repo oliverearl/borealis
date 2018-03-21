@@ -8,12 +8,14 @@
                     <button class="btn btn-sm btn-outline-secondary">Export</button>
                 </div>
                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
                     Magnetometer Data
                 </button>
             </div>
         </div>
-        <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+        <?php if (isset($graphOn)): ?>
+        <canvas class="my-4" id="chart" width="900" height="380"></canvas>
+        <?php endif; ?>
+        <?php require_once __DIR__ . '/Table.phtml'; ?>
     </main>
 </div>
 

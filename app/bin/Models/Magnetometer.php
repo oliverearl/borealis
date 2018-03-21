@@ -18,9 +18,9 @@ class Magnetometer extends DataSource
     private $temp;
     private $lastModified;
 
-    private function __construct($timeParam, $valueParam, $tempParam, $lastModifiedParam)
+    public function __construct($timeParam, $valueParam, $tempParam, $lastModifiedParam)
     {
-        $this->timestamp    = $this->convertToUnix($timeParam);
+        $this->timestamp    = $timeParam;
         $this->value        = $valueParam;
         $this->temp         = $tempParam;
         $this->lastModified = $lastModifiedParam;
@@ -40,14 +40,6 @@ class Magnetometer extends DataSource
     public function setTimestamp($timestamp)
     {
         $this->timestamp = $timestamp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUnixTimestamp()
-    {
-        return ($this->getTimestamp() + $this::EPOCH_DIFF);
     }
 
     /**
@@ -90,12 +82,12 @@ class Magnetometer extends DataSource
         return $this->lastModified;
     }
 
-    private function convertToUnix($lvTimestamp)
+    public function convertToUnix($lvTimestamp)
     {
         return ($lvTimestamp + $this::EPOCH_DIFF);
     }
 
-    private function convertToLabView($unixTimestamp)
+    public function convertToLabView($unixTimestamp)
     {
         return ($unixTimestamp - $this::EPOCH_DIFF);
     }

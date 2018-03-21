@@ -1,0 +1,27 @@
+<div class="row">
+    <!-- TODO: Total refactor -->
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Graphical View</th>
+            <th>Date Recorded</th>
+            <th>Magnetometer Value</th>
+            <th>Instrument Temperature</th>
+            <th>Unix Timestamp</th>
+            <th>labVIEW Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($entries as $entry): ?>
+            <tr>
+                <td><a class="btn btn-primary align-content-center" href="<?= "index.php?graph={$entry['id']}" ?>">View</a></td>
+                <td><?= date($entry['timestamp']); ?></td>
+                <td><?= $entry['value']; ?></td>
+                <td><?= $entry['temp']; ?></td>
+                <td><?= strtotime($entry['timestamp']); ?></td>
+                <td><?= (strtotime($entry['timestamp']) + 2082844800); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

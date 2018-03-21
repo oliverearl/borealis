@@ -6,16 +6,21 @@
  * Time: 23:19
  */
 ?>
-
 <!-- Graph Scripts -->
+<?php if (isset($graphOn)): ?>
+<?php
+$tempArray = [];
+foreach ($entries as $entry) {
+    array_push($tempArray, $entry['value']);
+}
+?>
 <script>
-    var ctx = document.getElementById("myChart");
+    var ctx = document.getElementById("chart");
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
             datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                data: [<?= implode(',', $tempArray); ?>],
                 lineTension: 0,
                 backgroundColor: 'transparent',
                 borderColor: '#007bff',
@@ -27,7 +32,7 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: false
+                        beginAtZero: true
                     }
                 }]
             },
@@ -37,3 +42,4 @@
         }
     });
 </script>
+<?php endif; ?>

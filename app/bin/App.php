@@ -2,41 +2,46 @@
 
 namespace App;
 
-use App\Database\DatabaseConnection;
-use App\i18n\LocaleLoader;
+use PDO;
+use PDOException;
 
-require_once __DIR__ . '/Database/DatabaseConnection.php';
+//use App\Database\DatabaseConnection;
+use App\i18n\LocaleLoader;
+use App\Models\Magnetometer;
+
+//require_once __DIR__ . '/Database/DatabaseConnection.php';
 require_once __DIR__ . '/i18n/LocaleLoader.php';
 
 class App
 {
+    private static $db;
     private $config;
-    private $db;
     private $language;
     private $i18n;
 
     public function __construct()
     {
         $this->config = require_once __DIR__ . '/Config/Config.php';
-        $this->db = DatabaseConnection::getInstance($this->getConfig());
+        $this::$db = App::getDbInstance($this->getConfig());
+        //$this->db = DatabaseConnection::getInstance($this->getConfig());
         $this->setLanguage();
         $this->i18n = LocaleLoader::loadLocale($this->getLanguage());
     }
 
-    /**
-     * @return DatabaseConnection
-     */
-    public function getDb()
+    public static function getDbInstance($config)
     {
-        return $this->db;
-    }
-
-    /**
-     * @param DatabaseConnection $db
-     */
-    public function setDb($db)
-    {
-        $this->db = $db;
+        if (is_null(self::$db)) {
+            try
+            {
+             $dsn = "{$config['dbType']}:host={$config['hostname']};dbname={$config['dbName']}";
+             self::$db = new PDO($dsn, $config['username'], $config['password']);
+             self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $ex)
+            {
+                trigger_error('Failed to connect to database: ' . $ex, E_USER_ERROR);
+            }
+        }
+        return self::$db;
     }
 
     public function getConfig()

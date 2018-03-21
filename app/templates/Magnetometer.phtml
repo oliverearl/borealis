@@ -1,0 +1,26 @@
+<div class="row">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2"><?= $app->getLocaleString('magnetometer.navigateEntries'); ?></h1>
+        </div>
+            <div class="col-md-5 mb-3">
+                <form action="index.php" method="POST">
+                    <div class="form-group">
+                        <label for="magnetometer"><?= $app->getLocaleString('magnetometer.databaseEntries'); ?></label>
+                        <?php
+                        $db = $app::getDbInstance(null);
+                        $stmt = $db->prepare('SELECT id, timestamp FROM magneto_meter ORDER BY timestamp DESC');
+                        $stmt->execute();
+                        $results = $stmt->fetchAll();
+                        ?>
+                        <select class="form-control" id="magnetometer" required>
+                            <?php foreach ($results as $result): ?>
+                                <option value="<?= $result['id']; ?>"><?= date($result['timestamp']); ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><?= $app->getLocaleString('view'); ?></button>
+                </form>
+            </div>
+    </main>
+</div>

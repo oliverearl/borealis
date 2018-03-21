@@ -41,9 +41,15 @@ if (is_null($app)) {
                 case 'settings':
                     require_once __DIR__ . '/Settings.phtml';
                     break;
+                case 'about':
+                    require_once __DIR__ .'/About.phtml';
+                    break;
                 case 'graph':
                     require_once __DIR__ . '/../bin/Functions/Grapher.php';
                     require_once __DIR__ . '/Graph.phtml';
+                    break;
+                case 'magnetometer':
+                    require_once __DIR__ .'/Magnetometer.phtml';
                     break;
                 default:
                     require_once __DIR__ . '/Home.phtml';

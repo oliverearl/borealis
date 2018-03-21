@@ -30,7 +30,7 @@ if (is_null($app)) {
 <html lang="<?= $app->getLanguage(); ?>">
 <head>
     <?php require_once __DIR__ . '/partial/Includes.phtml'; ?>
-    <title><?= $app->getAppName(); ?></title>
+    <title><?= $app->getAppName() . ' - ' . $app->getConfigEntry('appVersion'); ?></title>
 </head>
 <body>
     <?php require_once __DIR__ . '/partial/Header.phtml'; ?>
@@ -48,7 +48,7 @@ if (is_null($app)) {
                 default:
                     require_once __DIR__ . '/Home.phtml';
             }
-        } else if (isset($_GET['graph']) && is_numeric($_GET['graph'])) {
+        } else if (isset($_GET['graph']) && (is_numeric($_GET['graph']) || $_GET['graph'] === 'latest' || $_GET['graph'] === 'all')) {
             require_once __DIR__ . '/../bin/Functions/Grapher.php';
             require_once __DIR__ . '/Graph.phtml';
         } else {

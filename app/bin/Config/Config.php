@@ -1,6 +1,7 @@
 <?php
 return [
-    'appName' =>        'ole4 MMP',
+    'appName' =>        'Magnetosphere Monitor',
+    'appVersion' =>     'Prerelease 1, MID-DEMO',
     'appDescription' => 'Application',
     'appAuthor' =>      'Oliver Earl',
     'debug' =>          'true',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\i18n;
+namespace ole4\Magneto\i18n;
 
 class LocaleLoader
 {

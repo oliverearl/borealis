@@ -25,7 +25,8 @@
  */
 if (is_null($app)) {
     die();
-} ?>
+}
+?>
 <!DOCTYPE HTML>
 <html lang="<?= $app->getLanguage(); ?>">
 <head>

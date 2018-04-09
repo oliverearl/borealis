@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace ole4\Magneto;
 
 use PDO;
 use PDOException;
 
 //use App\Database\DatabaseConnection;
-use App\i18n\LocaleLoader;
-use App\Models\Magnetometer;
+use ole4\Magneto\i18n\LocaleLoader;
+use ole4\Magneto\Models\Magnetometer;
 
 //require_once __DIR__ . '/Database/DatabaseConnection.php';
 require_once __DIR__ . '/i18n/LocaleLoader.php';
@@ -28,7 +28,7 @@ class App
         $this->i18n = LocaleLoader::loadLocale($this->getLanguage());
     }
 
-    public static function getDbInstance($config)
+    public static function getDbInstance($config = null)
     {
         if (is_null(self::$db)) {
             try

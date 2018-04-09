@@ -6,7 +6,7 @@
  * Time: 21:07
  */
 
-namespace App\Models;
+namespace ole4\Magneto\Models;
 
 abstract class DataSource
 {

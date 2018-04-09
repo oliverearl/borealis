@@ -6,7 +6,11 @@
  * Time: 21:02
  */
 
-namespace App\Models;
+namespace ole4\Magneto\Models;
+
+require_once 'DataSource.php';
+
+use PDO;
 
 class Magnetometer extends DataSource
 {
@@ -90,5 +94,18 @@ class Magnetometer extends DataSource
     public function convertToLabView($unixTimestamp)
     {
         return ($unixTimestamp - $this::EPOCH_DIFF);
+    }
+
+    public static function getLatestEntry($db)
+    {
+        $stmt = $db->prepare('SELECT id FROM magneto_meter ORDER BY id DESC LIMIT 1');
+        $stmt->execute();
+        $components = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Magnetometer(
+            $components['timestamp'],
+            $components['value'],
+            $components['temp'],
+            $components['last_modified']
+        );
     }
 }

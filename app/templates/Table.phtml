@@ -12,14 +12,15 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($entries as $entry): ?>
+        <?php foreach($entriesToRetrieve as $entry): ?>
             <tr>
-                <td><a class="btn btn-primary align-content-center" href="<?= "index.php?graph={$entry['id']}" ?>">View</a></td>
-                <td><?= date($entry['timestamp']); ?></td>
-                <td><?= $entry['value']; ?></td>
-                <td><?= $entry['temp']; ?></td>
-                <td><?= strtotime($entry['timestamp']); ?></td>
-                <td><?= (strtotime($entry['timestamp']) + 2082844800); ?></td>
+                <?php // TODO Fix ID implementation "index.php?graph={$entry['id']}" ?>
+                <td><a class="btn btn-primary align-content-center" href="">View</a></td>
+                <td><?= date($entry.getTimestamp()); ?></td>
+                <td><?= $entry.getValue(); ?></td>
+                <td><?= $entry.getTemp(); ?></td>
+                <td><?= strtotime($entry.getTimestamp()); ?></td>
+                <td><?= (strtotime($entry.getTimestamp()) + 2082844800); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

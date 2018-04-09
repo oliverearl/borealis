@@ -9,8 +9,8 @@
 <!-- Graph Scripts -->
 <?php if (isset($graphOn)): ?>
 <?php
-$tempArray = [];
-foreach ($entries as $entry) {
+$tempArray[] = null;
+foreach ($entriesToRetrieve as $entry) {
     array_push($tempArray, $entry['value']);
 }
 ?>

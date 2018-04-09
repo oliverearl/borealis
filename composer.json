@@ -1,7 +1,7 @@
 {
   "name": "ole4/magneto",
   "description": "TBD",
-  "keywrods": [],
+  "keywords": [],
   "license": "MIT",
   "type": "",
   "require": {
@@ -13,10 +13,11 @@
   },
   "autoload": {
     "psr-4": {
-      "ole4\\": "app/bin",
-      "Magneto\\Models\\": "app/bin/Models",
-      "Magneto\\Config\\": "app/bin/Config",
-      "Magneto\\Functions\\": "app/bin/Functions"
+      "ole4\\Magneto\\": "src/",
+      "ole4\\Magneto\\Config\\": "src/Config",
+      "ole4\\Magneto\\Functions\\": "src/Functions",
+      "ole4\\Magneto\\i18n\\": "src/i18n",
+      "ole4\\Magneto\\Models\\": "src/Models"
     }
   },
   "config": {

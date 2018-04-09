@@ -6,7 +6,7 @@
  * Time: 21:03
  */
 
-namespace App\Models;
+namespace ole4\Magneto\Models;
 
 class InternetData extends DataSource
 {

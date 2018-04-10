@@ -26,11 +26,13 @@ class Renderer
      *
      * var_dump Twig Filter:
      * Adding the var_dump filter is a clever workaround for debugging and dumping variable contents from within views.
-     * Twig 2.x. includes this behaviour built in, but since we are working with PHP 5.4 we're limited to the first
-     * major revision of Twig that lacks this. This means we can use it like "{{ foo | var_dump }}" to view the contents
-     * of foo. Naturally due to the implications of dumping variable contents to the browser we only want this in debug
-     * mode. (Potentially very dangerous if one was to dump the contents of the database instance, for example.)
+     * From Twig ^1.5.x this behaviour is built in[1], but since we are working with PHP 5.4 we're limited to the first
+     * Twig[2], that lacks this. With this workaround we can use "{{ foo | var_dump }}" to view the contents of foo.
+     * Naturally due to the implications of dumping variable contents to the browser we only want this in debug
+     * mode. (Potentially very dangerous if one was to dump the contents of the database/config instances, for example.)
      * Credit: https://stackoverflow.com/questions/7317438/how-to-var-dump-variables-in-twig-templates
+     * [1]: https://twig.symfony.com/doc/2.x/functions/dump.html
+     * [2]: https://twig.symfony.com/doc/2.x/intro.html
      */
     public function __construct()
     {
@@ -88,6 +90,7 @@ class Renderer
         } elseif (isset($_GET['values']) && ($_GET['values'] <= $max)) {
             $testingArray = $_GET;
         } else {
+            // Why did we open graph/table without data? No problem.
             return $newArray;
         }
 

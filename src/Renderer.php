@@ -10,12 +10,27 @@ use ole4\Magneto\Config\Config;
 use ole4\Magneto\Database\Connector;
 use ole4\Magneto\i18n\Locale;
 
+/**
+ * Class Renderer
+ * @package ole4\Magneto
+ * @author Oliver Earl <ole4@aber.ac.uk>
+ */
 class Renderer
 {
     private $twigEnv;
     private $twig;
     const TEMPLATE_DIR = __DIR__ . '/../templates';
 
+    /**
+     * Renderer constructor.
+     *
+     * var_dump Twig Filter:
+     * Adding the var_dump filter is a clever workaround for debugging and dumping variable contents from within views.
+     * Twig 2.x. includes this behaviour built in, but since we are working with PHP 5.4 we're limited to the first
+     * major revision of Twig that lacks this. This means we can use it like "{{ foo | var_dump }}" to view the contents
+     * of foo. Naturally due to the implications of dumping variable contents to the browser we only want this in debug
+     * mode. (Potentially very dangerous if one was to dump the contents of the database instance, for example.)
+     */
     public function __construct()
     {
         $this->twigEnv = new Twig_Loader_Filesystem($this::TEMPLATE_DIR);

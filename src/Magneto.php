@@ -40,15 +40,24 @@ class Magneto
         $this->start();
     }
 
-    private function hello()
-    {
-        echo '<h1>Hello World</h1><hr>';
-        var_dump($this);
-    }
-
     private function start()
     {
         $this->renderer->route();
+    }
+
+    public static function sanitiseInt($data)
+    {
+        return strip_tags(filter_var($data, FILTER_SANITIZE_NUMBER_INT));
+    }
+
+    public static function error($description, $exception)
+    {
+        if (Config::getConfigEntry('debug')) {
+            trigger_error("{$description} {$exception}", E_USER_ERROR);
+        } else {
+            echo 'An error has occurred. Please contact the webmaster.';
+        }
+        die();
     }
 
 }

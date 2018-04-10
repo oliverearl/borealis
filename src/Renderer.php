@@ -4,6 +4,7 @@ namespace ole4\Magneto;
 use Twig_Loader_Filesystem;
 use Twig_Environment;
 use Twig_Error;
+use Twig_Filter_Function;
 
 use ole4\Magneto\Config\Config;
 use ole4\Magneto\Database\Connector;
@@ -19,6 +20,7 @@ class Renderer
     {
         $this->twigEnv = new Twig_Loader_Filesystem($this::TEMPLATE_DIR);
         $this->twig = new Twig_Environment($this->twigEnv);
+        $this->twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
         $this->registerGlobals();
     }
 
@@ -32,7 +34,7 @@ class Renderer
     public function route()
     {
         try {
-            echo $this->twig->render('index.php.twig', ['title' => 'Homepage']);
+            echo $this->twig->render('index.php.twig');
         } catch (Twig_Error $ex) {
             trigger_error("Templating error $ex", E_USER_ERROR);
         }

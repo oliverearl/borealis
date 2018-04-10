@@ -30,13 +30,13 @@ if (is_null($app)) {
 <!DOCTYPE HTML>
 <html lang="<?= $app->getLanguage(); ?>">
 <head>
-    <?php require_once __DIR__ . '/partial/Includes.phtml'; ?>
+    <?php require_once __DIR__ . '/Deprecated/Includes.phtml'; ?>
     <title><?= $app->getAppName() . ' - ' . $app->getConfigEntry('appVersion'); ?></title>
 </head>
 <body>
-    <?php require_once __DIR__ . '/partial/Header.phtml'; ?>
+    <?php require_once __DIR__ . '/Deprecated/Header.phtml'; ?>
     <div class="container-fluid">
-        <?php require_once __DIR__ . '/partial/Navigation.phtml'; ?>
+        <?php require_once __DIR__ . '/Deprecated/Navigation.phtml'; ?>
         <?php if (isset($_GET['p'])) {
             switch(strtolower($_GET['p'])) {
                 case 'settings':
@@ -61,7 +61,7 @@ if (is_null($app)) {
         } else {
             require_once __DIR__ . '/Home.phtml';
         } ?>
-        <?php require_once __DIR__ . '/partial/Scripts.phtml'; ?>
+        <?php require_once __DIR__ . '/Deprecated/Scripts.phtml'; ?>
     </div>
 </body>
 </html>

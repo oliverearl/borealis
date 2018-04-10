@@ -24,7 +24,13 @@ class Locale
         } else {
             self::$language = $language;
         }
+
+        if (isset($_GET['language']) && in_array(strtolower($_GET['language']), self::LANGUAGES)) {
+            self::$language = strtolower($_GET['language']);
+        }
+
         $_SESSION['language'] = self::$language;
+        // echo "<h1>{$_SESSION['language']}</h1>";
     }
 
     private static function determineLanguage()

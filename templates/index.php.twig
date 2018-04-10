@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>Hello World</h1>
+<h2>Program {{ config.appVersion }}</h2>
+<table>
+    <thead>
+    <tr>
+        <td>Values</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for option in config %}
+    <tr>
+        <td>{{ option }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

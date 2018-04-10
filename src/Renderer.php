@@ -30,6 +30,7 @@ class Renderer
      * major revision of Twig that lacks this. This means we can use it like "{{ foo | var_dump }}" to view the contents
      * of foo. Naturally due to the implications of dumping variable contents to the browser we only want this in debug
      * mode. (Potentially very dangerous if one was to dump the contents of the database instance, for example.)
+     * Credit: https://stackoverflow.com/questions/7317438/how-to-var-dump-variables-in-twig-templates
      */
     public function __construct()
     {

@@ -1,3 +1,32 @@
+{% block table %}
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>{{ locale.table.id }}</th>
+            <th>{{ locale.table.date }}</th>
+            <th>{{ locale.table.value }}</th>
+            <th>{{ locale.table.temp }}</th>
+            <th>{{ locale.table.unix }}</th>
+            <th>{{ locale.table.labview }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in objects %}
+            <tr>
+                <td>{{ object.getId() }}</td>
+                <td>{{ object.getTimestamp() }}</td>
+                <td>{{ object.getValue() }}</td>
+                <td>{{ object.getTemp() }}</td>
+                <td>{{ object.dateToUnix(object.getTimestamp()) }}</td>
+                <td>{{ object.convertToLabView(object.dateToUnix(object.getTimestamp())) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% if config.debug %}
+<hr>
 <h1>Debugger</h1>
 <h2>IDs of Parameters</h2>
 {{ entries | var_dump }}
@@ -7,3 +36,4 @@
 <hr>
 <h2>Chart.js JSON</h2>
 {{ json | var_dump }}
+{% endif %}

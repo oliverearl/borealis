@@ -90,26 +90,18 @@ class Magnetometer extends DataSource
         return $this->lastModified;
     }
 
+    public function dateToUnix($date)
+    {
+        return strtotime($date);
+    }
+
     public function convertToUnix($lvTimestamp)
     {
-        return ($lvTimestamp + $this::EPOCH_DIFF);
+        return ($lvTimestamp - $this::EPOCH_DIFF);
     }
 
     public function convertToLabView($unixTimestamp)
     {
-        return ($unixTimestamp - $this::EPOCH_DIFF);
-    }
-
-    public static function getLatestEntry($db)
-    {
-        $stmt = $db->prepare('SELECT id FROM magneto_meter ORDER BY id DESC LIMIT 1');
-        $stmt->execute();
-        $components = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Magnetometer(
-            $components['timestamp'],
-            $components['value'],
-            $components['temp'],
-            $components['last_modified']
-        );
+        return ($unixTimestamp + $this::EPOCH_DIFF);
     }
 }

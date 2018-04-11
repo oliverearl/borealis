@@ -45,6 +45,14 @@
   "graph": {
     "title": "Graphing Tool"
   },
+  "table": {
+    "id": "Unique ID",
+    "date": "Date Recorded",
+    "value": "Magnetometer Value",
+    "temp": "Instrument Temperature",
+    "unix": "Unix Timestamp",
+    "labview": "labVIEW Timestamp"
+  },
   "esa": {
     "title": "ESA",
     "data": "ESA Data"

@@ -74,7 +74,7 @@ class Renderer
                     $graphJson =     $this->magnetometer->graphJsonFromObjects([$objects]);
                     $this->loadPage('graph', [
                         'entries'   => [$objects->getId()],
-                        'objects'   => $objects,
+                        'objects'   => [$objects],
                         'json'      => $graphJson
                     ]);
                     break;

@@ -1,0 +1,12 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php">{{ config.appName }}</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            {% if language is same as('en') %}
+                <a class="nav-link" href="index.php?language=cy">🏴󠁧󠁢󠁷󠁬󠁳󠁿 {{ locale.welsh }}</a>
+            {% else %}
+                <a class="nav-link" href="index.php?language=en">🏴󠁧󠁢󠁥󠁮󠁧󠁿 {{ locale.english }}</a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

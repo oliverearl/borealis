@@ -1,0 +1,47 @@
+<script type="application/javascript">
+    var ctx = document.getElementById("chart");
+    var data = JSON.parse('{{ json | raw }}');
+    var values = [];
+    var dates = [];
+    for (var i in data) {
+        if (data[i].x && data[i].y) {
+            values.push(data[i].x);
+            dates.push(data[i].y);
+        }
+    }
+    var config = {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    data: values,
+                    label: "Magnetometer Reading",
+                    backgroundColor: 'red',
+                    borderColor: "red",
+                    fill: false
+                }
+            ]
+        }
+    };
+    var chart = new Chart(ctx, config);
+
+    if (values.length && dates.length === 1) {
+        switchType('bar');
+    }
+
+    function switchType(type) {
+        var ctx = document.getElementById("chart");
+
+        // Remove the old chart
+        if (chart) {
+            chart.destroy();
+        }
+
+        // Modify the object using jQuery
+        var tempConfig = jQuery.extend(true, {}, config);
+        tempConfig.type = type;
+        chart = new Chart(ctx, tempConfig);
+    }
+</script>
+

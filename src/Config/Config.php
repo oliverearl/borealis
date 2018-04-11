@@ -5,8 +5,8 @@ class Config
 {
     private static $config = array(
         'debug' =>          true,
-        'appName' =>        'Magnetosphere Monitor',
-        'appVersion' =>     'Prerelease 1, MID-DEMO',
+        'appName' =>        'Borealis',
+        'appVersion' =>     '1.2.0',
         'appDescription' => 'Application',
         'appAuthor' =>      'Oliver Earl',
         'debug' =>          'true',

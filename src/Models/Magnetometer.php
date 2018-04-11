@@ -8,8 +8,6 @@
 
 namespace ole4\Magneto\Models;
 
-require_once 'DataSource.php';
-
 use PDO;
 
 class Magnetometer extends DataSource
@@ -17,17 +15,23 @@ class Magnetometer extends DataSource
 
     const EPOCH_DIFF = 2082844800;
 
+    private $id;
     private $timestamp;
     private $value;
     private $temp;
     private $lastModified;
 
-    public function __construct($timeParam, $valueParam, $tempParam, $lastModifiedParam)
+    public function __construct($id, $timeParam, $valueParam, $tempParam, $lastModifiedParam)
     {
+        $this->id           = $id;
         $this->timestamp    = $timeParam;
         $this->value        = $valueParam;
         $this->temp         = $tempParam;
         $this->lastModified = $lastModifiedParam;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     /**

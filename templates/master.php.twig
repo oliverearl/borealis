@@ -6,145 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="{{ config.appDescription }}">
     <meta name="author" content="{{ config.appAuthor }}">
-
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-
-    <!-- Font Awesome -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-          crossorigin="anonymous">
-
-    <!-- Temporary Custom Styling -->
-    <link href="assets/styles/app.css" rel="stylesheet">
+    {% include ('partials/includes.php.twig') %}
     <title>{% block title %}{% endblock %} - {{ config.appName }}</title>
 </head>
 <body>
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php">{{ config.appName }}
-        <small>{{ config.appVersion }}</small>
-    </a>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            {% if language is same as('en') %}
-                <a class="nav-link" href="index.php?language=cy">{{ locale.welsh }}</a>
-            {% else %}
-                <a class="nav-link" href="index.php?language=en">{{ locale.english }}</a>
-            {% endif %}
-        </li>
-    </ul>
-</nav>
+{% include ('partials/topnav.php.twig') %}
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <!-- TODO: Find a fix for this, can I remove it? -->
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <!-- END -->
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>{{ locale.magnetometer.title }}</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                        </a>
-                    </h6>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?graph=latest">
-                            {{ locale.magnetometer.latestEntry }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?graph=all">
-                            {{ locale.magnetometer.displayAll }}
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>{{ locale.radio.data }}</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                    </a>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <em>{{ locale.unimplemented }}</em>
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>{{ locale.esa.data }}</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                    </a>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <em>{{ locale.unimplemented }}</em>
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>{{ locale.application }}</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                    </a>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?p=about">
-                            {{ locale.app.about }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?p=settings">
-                            {{ locale.app.settings }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    {% block content %}{% endblock %}
+{% include ('partials/navigation.php.twig') %}
+{% block content %}{% endblock %}
 </div>
-<!-- jQuery -->
-<script
-        type="application/javascript"
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous">
-</script>
-
-<!-- Bootstrap -->
-<script
-        type="application/javascript"
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
-        integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D"
-        crossorigin="anonymous">
-</script>
-
-<!-- Chart.js -->
-<script
-        type="application/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
-        integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ="
-        crossorigin="anonymous">
-</script>
-
-<!-- Program Scripts -->
-<script
-        type="application/javascript"
-        src="assets/scripts/app.js">
-</script>
-
+{% include ('partials/scripts.php.twig') %}
 <!-- Optional Injections -->
 {% block scripts %}{% endblock %}
 </body>

@@ -1,0 +1,35 @@
+{% extends "master.php.twig" %}
+{% block phpincludes %}
+{% endblock %}
+
+{% block title %}{{ locale.graph.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{ locale.graph.title }}</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    {% if objects is not empty %}
+                    <button class="btn btn-sm btn-outline-secondary">{{ locale.exportXML }}</button>
+                    <button class="btn btn-sm btn-outline-secondary">{{ locale.exportJSON }}</button>
+                    <button name="btn-bar" class="btn btn-sm btn-outline-secondary" onclick="switchType('bar')">Bar View</button>
+                    <button name="btn-line" class="btn btn-sm btn-outline-secondary" onclick="switchType('line')">Line View</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if objects is empty %}
+        <p>{{ locale.errors.noDataSelected }}</p>
+        {% else %}
+        <canvas class="my-4" id="chart" width="900" height="380"></canvas>
+        {% include 'partials/data.php.twig' %}
+        {% endif %}
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% include 'partials/chart.php.twig' %}
+{% endblock %}

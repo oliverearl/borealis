@@ -9,6 +9,7 @@ use Twig_Error;
 use ole4\Magneto\Config\Config;
 use ole4\Magneto\Database\Connector;
 use ole4\Magneto\i18n\Locale;
+use ole4\Magneto\Controllers\MagnetometerController;
 
 /**
  * Class Renderer
@@ -19,6 +20,8 @@ class Renderer
 {
     private $twigEnv;
     private $twig;
+    private $magnetometer;
+
     const TEMPLATE_DIR = __DIR__ . '/../templates';
 
     /**
@@ -43,6 +46,7 @@ class Renderer
         }
 
         $this->registerGlobals();
+        $this->magnetometer = new MagnetometerController();
     }
 
     public function route()
@@ -56,10 +60,31 @@ class Renderer
                     $this->loadPage('about');
                     break;
                 case 'graph':
-                    $this->loadPage('graph', array('data' => $this->additionalData()));
+                    $entries =      $this->additionalData();
+                    $objects =      $this->magnetometer->getObjectsFromIds($entries);
+                    $graphJson =    $this->magnetometer->graphJsonFromObjects($objects);
+                    $this->loadPage('graph', [
+                        'entries'   => $entries,
+                        'objects'   => $objects,
+                        'json'      => $graphJson
+                    ]);
+                    break;
+                case 'latest':
+                    $objects =       $this->magnetometer->getLatest();
+                    $graphJson =     $this->magnetometer->graphJsonFromObjects([$objects]);
+                    $this->loadPage('graph', [
+                        'entries'   => [$objects->getId()],
+                        'objects'   => $objects,
+                        'json'      => $graphJson
+                    ]);
                     break;
                 case 'table':
-                    $this->loadPage('table', array('data' => $this->additionalData()));
+                    $entries = $this->additionalData();
+                    $objects = $this->magnetometer->getObjectsFromIds($entries);
+                    $this->loadPage('table', [
+                        'entries'   => $entries,
+                        'objects'   => $objects
+                    ]);
                     break;
                 case 'home':
                 default:

@@ -124,20 +124,25 @@ class Renderer
         $testingArray = [];
         $newArray = [];
         $max = Config::getConfigEntry('maxElements');
+        $iterate = $max;
 
-        if (isset($_POST['values']) && ($_POST['values'] <= $max)) {
+        if (isset($_POST['values']) && isset($_POST['number']) && ($_POST['number'] < $max)) {
             $testingArray = $_POST;
-        } elseif (isset($_GET['values']) && ($_GET['values'] <= $max)) {
+        } elseif (isset($_GET['values']) && isset($_GET['number']) && ($_GET['number'] < $max)) {
             $testingArray = $_GET;
         } else {
             // Why did we open graph/table without data? No problem.
             return $newArray;
         }
 
-        for ($i = 0; $i < $max; $i++) {
-            if (isset($testingArray["values_{$i}"])) {
-                if (Magneto::sanitiseInt($testingArray["values_{$i}"])) {
-                    array_push($newArray, $testingArray["values_{$i}"]);
+        if (isset($testingArray['number']) && is_numeric($testingArray)) {
+            $iterate = $testingArray['number'];
+        }
+
+        for ($i = 0; $i < $iterate; $i++) {
+            if (isset($testingArray['values'][$i])) {
+                if (Magneto::sanitiseInt($testingArray['values'][$i])) {
+                    array_push($newArray, $testingArray['values'][$i]);
                 }
             }
         }

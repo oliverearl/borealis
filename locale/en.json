@@ -51,9 +51,12 @@
   },
   "graph": {
     "title": "Graphing Tool",
-    "loadTool": "Load Graphing Tool"
+    "loadTool": "Load Graphing Tool",
+    "barView": "Bar View",
+    "lineView": "Line View"
   },
   "table": {
+    "title": "Tabular Data",
     "loadTool": "Load Tables Only",
     "id": "Unique ID",
     "date": "Date Recorded",

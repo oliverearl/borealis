@@ -19,30 +19,42 @@
 
                 {# https://stackoverflow.com/questions/26302077/twig-how-to-loop-particular-number-of-times #}
                 {% for i in range(0, (config.maxElements - 1)) %}
-                    <div id="entry[{{ i }}]" class="">
+                    <div id="entry[{{ i }}]">
                         <div class="form-group">
-                            <label for="values[{{ i }}]">{{ locale.magnetometer.entry }} - {{ (i + 1) }}</label>
-                            <select id="values[{{ i }}]" class="form-control">
+                            <label for="values[{{ i }}]" class="form-control">
+                                {{ locale.magnetometer.entry }} - {{ (i + 1) }}
+                            </label>
+                            <select name="values[{{ i }}]" id="values[{{ i }}]" class="form-control">
                                 {% for object in objects %}
                                 <option value="{{ object.getId() }}">{{ object.getTimestamp() }}</option>
                                 {% endfor %}
                             </select>
-                            <button id="btn_delete[{{ i }}]" class="btn btn-danger btn-block" onclick="deleteEntry({{ i }})">{{ locale.deleteEntry }}</button>
+                            <button id="btn_delete[{{ i }}]"
+                                    class="btn btn-danger btn-block"
+                                    onclick="deleteEntry({{ i }})">
+                                {{ locale.deleteEntry }}
+                            </button>
                         </div>
                     </div>
                 {% endfor %}
+
                 <input type="hidden" name="number" id="number" value="{{ (config.maxElements - 1) }}">
                 <input type="hidden" name="csrf_check" id="csrf_check" value="">
 
                 <hr class="mb-4">
                 <div class="btn-group form-inline">
-                    <button class="btn btn-primary btn-dark" disabled>Add Magnetometer Entry</button>
-                    <button class="btn btn-outline-dark" disabled>Add Radio Entry</button>
-                    <button class="btn btn-outline-dark" disabled>Add ESA Entry</button>
+                    <button class="btn btn-primary btn-dark" disabled>{{ locale.magnetometer.addEntry }}</button>
+                    <button class="btn btn-outline-dark" disabled>{{ locale.radio.addEntry }}</button>
+                    <button class="btn btn-outline-dark" disabled>{{ locale.esa.addEntry }}</button>
                 </div>
+                {# https://www.w3schools.com/tags/att_button_formaction.asp #}
                 <div class="btn-group form-inline">
-                    <button class="btn btn-primary" name="graph" type="submit">Load Graphing Tool</button>
-                    <button class="btn btn-primary" name="table" type="submit">Load Tables Only</button>
+                    <button class="btn btn-primary" name="graph" formaction="index.php?page=graph" type="submit">
+                        {{ locale.graph.loadTool }}
+                    </button>
+                    <button class="btn btn-primary" name="table" formaction="index.php?page=table" type="submit">
+                        {{ locale.table.loadTool }}
+                    </button>
                 </div>
             </form>
         </div>

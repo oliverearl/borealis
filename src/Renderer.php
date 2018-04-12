@@ -73,6 +73,14 @@ class Renderer
                         'json'      => $graphJson
                     ]);
                     break;
+                case 'table':
+                    $entries = $this->additionalData();
+                    $objects = $this->magnetometer->getObjectsFromIds($entries);
+                    $this->loadPage('table', [
+                        'entries'   => $entries,
+                        'objects'   => $objects
+                    ]);
+                    break;
                 case 'all':
                     $objects =      $this->magnetometer->getAll();
                     $entries =      $this->magnetometer->getIdsFromObjectsArray($objects);
@@ -91,14 +99,6 @@ class Renderer
                         'objects'   => $objects,
                         'entries'   => $entries,
                         'json'      => $graphJson
-                    ]);
-                    break;
-                case 'table':
-                    $entries = $this->additionalData();
-                    $objects = $this->magnetometer->getObjectsFromIds($entries);
-                    $this->loadPage('table', [
-                        'entries'   => $entries,
-                        'objects'   => $objects
                     ]);
                     break;
                 case 'home':
@@ -125,7 +125,6 @@ class Renderer
         $newArray = [];
         $max = Config::getConfigEntry('maxElements');
         $iterate = $max;
-
         if (isset($_POST['values']) && isset($_POST['number']) && ($_POST['number'] < $max)) {
             $testingArray = $_POST;
         } elseif (isset($_GET['values']) && isset($_GET['number']) && ($_GET['number'] < $max)) {
@@ -135,8 +134,8 @@ class Renderer
             return $newArray;
         }
 
-        if (isset($testingArray['number']) && is_numeric($testingArray)) {
-            $iterate = $testingArray['number'];
+        if (isset($testingArray['number']) && is_numeric($testingArray['number'])) {
+            $iterate = ($testingArray['number'] + 1);
         }
 
         for ($i = 0; $i < $iterate; $i++) {

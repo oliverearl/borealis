@@ -5,35 +5,55 @@
 {% block title %}{{ locale.graph.title }}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">{{ locale.graph.title }}</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group mr-2">
-                    {% if objects is not empty %}
-                    <button class="btn btn-sm btn-outline-secondary">{{ locale.exportXML }}</button>
-                    <button class="btn btn-sm btn-outline-secondary">{{ locale.exportJSON }}</button>
-                    <button name="btn-bar" class="btn btn-sm btn-outline-secondary" onclick="switchType('bar')">Bar View</button>
-                    <button name="btn-line" class="btn btn-sm btn-outline-secondary" onclick="switchType('line')">Line View</button>
-                    {% endif %}
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{ locale.graph.title }}</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        {% if objects is not empty %}
+                            <button class="btn btn-sm btn-outline-secondary" disabled>{{ locale.exportXML }}</button>
+                            <button class="btn btn-sm btn-outline-secondary" disabled>{{ locale.exportJSON }}</button>
+                            <button name="btn-bar"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    onclick="switchType('bar')">
+                                {{ locale.graph.barView }}
+                            </button>
+                            <button name="btn-line"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    onclick="switchType('line')">
+                                {{ locale.graph.lineView }}
+                            </button>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        {% if objects is empty %}
-        <p>{{ locale.errors.noDataSelected }}</p>
-        {% else %}
-        <canvas class="my-4" id="chart" width="900" height="380" style="display:none"></canvas>
-            <noscript><div class="row alert alert-danger">{{ locale.errors.javascript }}</div></noscript>
-        <script type="application/javascript">
-            document.getElementById('chart').style.removeProperty('display');
-        </script>
-        {% include 'partials/data.php.twig' %}
-        {% endif %}
-    </main>
-</div>
+            {% if objects is empty %}
+                <p>{{ locale.errors.noDataSelected }}</p>
+            {% else %}
+                <canvas class="my-4" id="chart" width="900" height="380" style="display:none"></canvas>
+                <noscript><div class="row alert alert-danger">{{ locale.errors.javascript }}</div></noscript>
+                <script type="application/javascript">
+                    document.getElementById('chart').style.removeProperty('display');
+                </script>
+                {% include 'partials/data.php.twig' %}
+            {% if config.debug %}
+            <hr>
+                <h2>Debugger</h2>
+                <h3>IDs of Parameters</h3>
+                {{ entries | var_dump }}
+            <hr>
+                <h3>Retrieved Magnetometer Objects</h3>
+                {{ objects | var_dump }}
+            <hr>
+                <h3>Chart.js JSON</h3>
+                {{ json | var_dump }}
+            {% endif %}
+            {% endif %}
+        </main>
+    </div>
 {% endblock %}
 
 {% block scripts %}
-{% include 'partials/chart.php.twig' %}
+    {% include 'partials/chart.php.twig' %}
 {% endblock %}

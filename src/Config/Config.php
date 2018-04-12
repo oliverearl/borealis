@@ -14,7 +14,7 @@ class Config
         'username' =>       'ole4',
         'password' =>       '***REMOVED***',
         'dbType' =>         'mysql',
-        'maxElements' =>    10
+        'maxElements' =>    4
     );
 
     private function __construct() {}

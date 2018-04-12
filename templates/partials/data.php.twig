@@ -1,40 +1,31 @@
 {% block table %}
-    <h2>Tabular Data</h2>
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>{{ locale.table.id }}</th>
-            <th>{{ locale.table.date }}</th>
-            <th>{{ locale.table.value }}</th>
-            <th>{{ locale.table.temp }}</th>
-            <th>{{ locale.table.unix }}</th>
-            <th>{{ locale.table.labview }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for object in objects %}
+    <div class="row">
+        <h2>Tabular Data</h2>
+        <table class="table table-responsive">
+            <thead>
             <tr>
-                <td>{{ object.getId() }}</td>
-                <td>{{ object.getTimestamp() }}</td>
-                <td>{{ object.getValue() }}</td>
-                <td>{{ object.getTemp() }}</td>
-                <td>{{ object.dateToUnix(object.getTimestamp()) }}</td>
-                <td>{{ object.convertToLabView(object.dateToUnix(object.getTimestamp())) }}</td>
+                <th>{{ locale.table.id }}</th>
+                <th>{{ locale.table.date }}</th>
+                <th>{{ locale.table.value }}</th>
+                <th>{{ locale.table.temp }}</th>
+                <th>{{ locale.table.unix }}</th>
+                <th>{{ locale.table.labview }}</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for object in objects %}
+                <tr>
+                    <td>{{ object.getId() }}</td>
+                    <td>{{ object.getTimestamp() }}</td>
+                    <td>{{ object.getValue() }}</td>
+                    <td>{{ object.getTemp() }}</td>
+                    <td>{{ object.dateToUnix(object.getTimestamp()) }}</td>
+                    <td>{{ object.convertToLabView(object.dateToUnix(object.getTimestamp())) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="index.php?page=navigator" class="btn-outline-dark btn">Return to Navigator</a>
+        <a href="#top" class="btn-outline-dark btn">Top of Page</a>
+    </div>
 {% endblock %}
-
-{% if config.debug %}
-<hr>
-<h2>Debugger</h2>
-<h3>IDs of Parameters</h3>
-{{ entries | var_dump }}
-<hr>
-<h3>Retrieved Magnetometer Objects</h3>
-{{ objects | var_dump }}
-<hr>
-<h3>Chart.js JSON</h3>
-{{ json | var_dump }}
-{% endif %}

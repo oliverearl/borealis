@@ -77,7 +77,7 @@ class MagnetometerController
      * [1]: https://stackoverflow.com/questions/44250066/how-to-pass-data-from-php-to-chart-js
      * [2]: https://processwire.com/talk/topic/12307-php-arrays-to-json-without/
      */
-    public function graphJsonFromObjects($magnetometers)
+    public function getGraphJsonFromObjects($magnetometers)
     {
         $formattedJson = [];
         foreach ($magnetometers as $magnetometer) {
@@ -91,15 +91,47 @@ class MagnetometerController
         return json_encode($formattedJson, JSON_FORCE_OBJECT);
     }
 
+    public function getIdsFromObjectsArray($magnetometers)
+    {
+        if (is_null($magnetometers)) {
+            return [];
+        }
+        $ids = [];
+        foreach ($magnetometers as $magnetometer) {
+            array_push($ids, $magnetometer->getId());
+        }
+        return $ids;
+    }
+
     public function getLatest()
     {
-        $stmt = $this->db->prepare('SELECT id FROM magneto_meter ORDER BY id DESC LIMIT 1');
-        $stmt->execute();
-        $magnetometer = $this->getObjectById($stmt->fetch(PDO::FETCH_ASSOC)['id']);
-        if (!is_null($magnetometer)) {
-            return $magnetometer;
+        $magnetometer = $this->getAll(true);
+        return $magnetometer;
+    }
+
+    public function getAll($limit1 = false)
+    {
+        $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id DESC');
+        if ($limit1) {
+            $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id DESC LIMIT 1');
         }
-        return null;
+        $stmt->execute();
+        $entries = $stmt->fetchAll();
+
+        $magnetometer = null;
+        $magnetometers = [];
+
+        foreach ($entries as $entry) {
+            $magnetometer =  new Magnetometer(
+                $entry['id'],
+                $entry['timestamp'],
+                $entry['value'],
+                $entry['temp'],
+                $entry['last_modified']
+            );
+            array_push($magnetometers, $magnetometer);
+        }
+        return $magnetometers;
     }
 
 }

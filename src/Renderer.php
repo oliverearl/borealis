@@ -59,22 +59,38 @@ class Renderer
                 case 'about':
                     $this->loadPage('about');
                     break;
+                case 'magnetometer':
+                    $this->loadPage('magnetometer', [
+                        'objects'   => $this->magnetometer->getAll(),
+                    ]);
+                    break;
                 case 'graph':
                     $entries =      $this->additionalData();
                     $objects =      $this->magnetometer->getObjectsFromIds($entries);
-                    $graphJson =    $this->magnetometer->graphJsonFromObjects($objects);
+                    $graphJson =    $this->magnetometer->getGraphJsonFromObjects($objects);
                     $this->loadPage('graph', [
                         'entries'   => $entries,
                         'objects'   => $objects,
                         'json'      => $graphJson
                     ]);
                     break;
+                case 'all':
+                    $objects =      $this->magnetometer->getAll();
+                    $entries =      $this->magnetometer->getIdsFromObjectsArray($objects);
+                    $graphJson =    $this->magnetometer->getGraphJsonFromObjects($objects);
+                    $this->loadPage('graph', [
+                       'objects'    => $objects,
+                       'entries'    => $entries,
+                       'json'       => $graphJson
+                    ]);
+                    break;
                 case 'latest':
                     $objects =       $this->magnetometer->getLatest();
-                    $graphJson =     $this->magnetometer->graphJsonFromObjects([$objects]);
+                    $entries =       $this->magnetometer->getIdsFromObjectsArray($objects);
+                    $graphJson =     $this->magnetometer->getGraphJsonFromObjects($objects);
                     $this->loadPage('graph', [
-                        'entries'   => [$objects->getId()],
-                        'objects'   => [$objects],
+                        'objects'   => $objects,
+                        'entries'   => $entries,
                         'json'      => $graphJson
                     ]);
                     break;

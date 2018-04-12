@@ -29,19 +29,5 @@
     if (values.length && dates.length === 1) {
         switchType('bar');
     }
-
-    function switchType(type) {
-        var ctx = document.getElementById("chart");
-
-        // Remove the old chart
-        if (chart) {
-            chart.destroy();
-        }
-
-        // Modify the object using jQuery
-        var tempConfig = jQuery.extend(true, {}, config);
-        tempConfig.type = type;
-        chart = new Chart(ctx, tempConfig);
-    }
 </script>
 

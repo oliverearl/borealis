@@ -15,3 +15,7 @@ function switchType(type) {
   tempConfig.type = type;
   chart = new Chart(ctx, tempConfig);
 }
+
+/**
+ *
+ */

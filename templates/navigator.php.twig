@@ -1,0 +1,47 @@
+{% extends "master.php.twig" %}
+{% block title %}{{ locale.magnetometer.navigateEntries }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{ locale.magnetometer.navigateEntries }}</h1>
+                <p>{{ locale.magnetometer.description }}</p>
+            </div>
+        </main>
+    </div>
+    <div class="row">
+        <div class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <noscript class="alert alert-danger">{{ locale.errors.javascript }}</noscript>
+            <form id="navigator" class="form-control" style="display: none">
+                <script type="application/javascript">
+                    document.getElementById('navigator').style.removeProperty('display');
+                </script>
+{% use i = 6 %}
+                    <div id="entry[{{ i }}]" class="form-group">
+                        <div class="col-md-3">
+                            <label for="values[{{ i }}]">{{ locale.magnetometer.entry }}</label>
+                            <select id="values[{{ i }}]" class="form-control">
+                                {% for object in objects %}
+                                <option value="{{ object.getId() }}">{{ object.getTimestamp() }}</option>
+                                {% endfor %}
+                            </select>
+                            {<button id="btn_delete[{{ i }}]" class="btn btn-dark btn-block">{{ locale.deleteEntry }}</button>
+                        </div>
+                    </div>
+
+
+                <hr class="mb-4">
+                <div class="btn-group form-inline">
+                    <button class="btn btn-primary btn-dark">Add Magnetometer Entry</button>
+                    <button class="btn btn-outline-dark" disabled>Add Radio Entry</button>
+                    <button class="btn btn-outline-dark" disabled>Add ESA Entry</button>
+                </div>
+                <div class="btn-group form-inline">
+                    <button class="btn btn-primary" name="graph" type="submit">Load Graphing Tool</button>
+                    <button class="btn btn-primary" name="table" type="submit">Load Tables Only</button>
+                </div>
+                <h1>Test</h1>
+            </form>
+        </div>
+    </div>
+{% endblock %}

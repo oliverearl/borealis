@@ -9,7 +9,6 @@ class Config
         'appVersion' =>     '1.2.0',
         'appDescription' => 'Application',
         'appAuthor' =>      'Oliver Earl',
-        'debug' =>          'true',
         'hostname' =>       'db.dcs.aber.ac.uk',
         'dbName' =>         'ole4',
         'username' =>       'ole4',

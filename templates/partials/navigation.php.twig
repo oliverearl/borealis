@@ -5,20 +5,37 @@
                 <!-- TODO: Find a fix for this, can I remove it? -->
                 <li class="nav-item">
                     <a class="nav-link active" href="#">
-                        <span class="sr-only">(current)</span>
+                        <span class="sr-only"></span>
                     </a>
                 </li>
                 <!-- END -->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>{{ locale.application }}</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                    </a>
+                </h6>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=navigator">
+                        {{ locale.magnetometer.navigateEntries }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?p=about">
+                        {{ locale.app.about }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?p=settings">
+                        {{ locale.app.settings }}
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>{{ locale.magnetometer.title }}</span>
                     <a class="d-flex align-items-center text-muted" href="#">
                     </a>
                 </h6>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=magnetometer">
-                        {{ locale.magnetometer.navigateEntries }}
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=latest">
                         {{ locale.magnetometer.latestEntry }}
@@ -53,24 +70,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <em>{{ locale.unimplemented }}</em>
-                    </a>
-                </li>
-            </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>{{ locale.application }}</span>
-                <a class="d-flex align-items-center text-muted" href="#">
-                </a>
-            </h6>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?p=about">
-                        {{ locale.app.about }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?p=settings">
-                        {{ locale.app.settings }}
                     </a>
                 </li>
             </ul>

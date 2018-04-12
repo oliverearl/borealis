@@ -23,7 +23,11 @@
         {% if objects is empty %}
         <p>{{ locale.errors.noDataSelected }}</p>
         {% else %}
-        <canvas class="my-4" id="chart" width="900" height="380"></canvas>
+        <canvas class="my-4" id="chart" width="900" height="380" style="display:none"></canvas>
+            <noscript><div class="row alert alert-danger">{{ locale.errors.javascript }}</div></noscript>
+        <script type="application/javascript">
+            document.getElementById('chart').style.removeProperty('display');
+        </script>
         {% include 'partials/data.php.twig' %}
         {% endif %}
     </main>

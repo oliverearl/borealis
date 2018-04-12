@@ -29,7 +29,7 @@ class MagnetometerController
             return null;
         }
 
-        $stmt = $this->db->prepare('SELECT * FROM magneto_meter WHERE id = :key ORDER BY id DESC');
+        $stmt = $this->db->prepare('SELECT * FROM magneto_meter WHERE id = :key ORDER BY id ASC');
         $stmt->bindParam(':key', $id);
         $stmt->execute();
         $result =  $stmt->fetch(PDO::FETCH_ASSOC);
@@ -111,9 +111,9 @@ class MagnetometerController
 
     public function getAll($limit1 = false)
     {
-        $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id DESC');
+        $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id ASC');
         if ($limit1) {
-            $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id DESC LIMIT 1');
+            $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id ASC LIMIT 1');
         }
         $stmt->execute();
         $entries = $stmt->fetchAll();

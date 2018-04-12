@@ -1,4 +1,5 @@
 {% block table %}
+    <h2>Tabular Data</h2>
     <table class="table table-responsive">
         <thead>
         <tr>
@@ -27,13 +28,13 @@
 
 {% if config.debug %}
 <hr>
-<h1>Debugger</h1>
-<h2>IDs of Parameters</h2>
+<h2>Debugger</h2>
+<h3>IDs of Parameters</h3>
 {{ entries | var_dump }}
 <hr>
-<h2>Retrieved Magnetometer Objects</h2>
+<h3>Retrieved Magnetometer Objects</h3>
 {{ objects | var_dump }}
 <hr>
-<h2>Chart.js JSON</h2>
+<h3>Chart.js JSON</h3>
 {{ json | var_dump }}
 {% endif %}

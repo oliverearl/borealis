@@ -31,19 +31,18 @@ class Renderer
      * Adding the var_dump filter is a clever workaround for debugging and dumping variable contents from within views.
      * From Twig ^1.5.x this behaviour is built in[1], but since we are working with PHP 5.4 we're limited to the first
      * Twig[2], that lacks this. With this workaround we can use "{{ foo | var_dump }}" to view the contents of foo.
-     * Naturally due to the implications of dumping variable contents to the browser we only want this in debug
-     * mode. (Potentially very dangerous if one was to dump the contents of the database/config instances, for example.)
+     * Naturally due to the implications of dumping variable contents to the browser we need to make sure in templates
+     * that it is only used in debug mode. If it were enforced here, it would cause an unknown filter exception.
+     * (Potentially very dangerous if one was to dump the contents of the database/config instances, for example.)
      * Credit: https://stackoverflow.com/questions/7317438/how-to-var-dump-variables-in-twig-templates
-     * [1]: https://twig.symfony.com/doc/2.x/functions/dump.html
+     * [1]: https://twig.symfony.com/doc/1.x/functions/dump.html (Says 1.x, but only available from ^1.5.x)
      * [2]: https://twig.symfony.com/doc/2.x/intro.html
      */
     public function __construct()
     {
         $this->twigEnv = new Twig_Loader_Filesystem($this::TEMPLATE_DIR);
         $this->twig = new Twig_Environment($this->twigEnv);
-        if (Config::getConfigEntry('debug')) {
-            $this->twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
-        }
+        $this->twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
 
         $this->registerGlobals();
         $this->magnetometer = new MagnetometerController();
@@ -59,8 +58,8 @@ class Renderer
                 case 'about':
                     $this->loadPage('about');
                     break;
-                case 'magnetometer':
-                    $this->loadPage('magnetometer', [
+                case 'navigator':
+                    $this->loadPage('navigator', [
                         'objects'   => $this->magnetometer->getAll(),
                     ]);
                     break;

@@ -4,7 +4,6 @@
   "unimplemented": "Unimplemented",
   "application": "Application",
   "view": "View",
-  "dashboard": "Dashboard",
   "exportJSON": "Export JSON",
   "exportXML": "Export XML",
   "january": "January",
@@ -19,34 +18,43 @@
   "october": "October",
   "november": "November",
   "december": "December",
+  "deleteEntry": "Delete Entry",
   "app": {
     "about": "About Program",
     "settings": "Settings"
   },
   "errors": {
+    "general": "An error has occurred. Since this is production mode, the info is hidden, just let the dev know!",
+    "javascript": "This program requires JavaScript enabled to run.",
     "noDataFound": "No Data Found",
     "noDataSelected": "No Data Selected"
   },
   "home": {
-    "title": "Magnetosphere Monitor",
+    "title": "Dashboard",
     "subtitle": "Important Information",
     "introduction": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
   },
   "magnetometer": {
     "title": "Magnetometer",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     "latestEntry": "Latest Entry",
     "displayAll": "Display All",
     "navigateEntries": "Navigate Entries",
-    "databaseEntries": "Database Entries"
+    "databaseEntries": "Database Entries",
+    "addEntry": "Add Magnetometer Entry",
+    "entry": "Magnetometer Entry"
   },
   "radio": {
     "title": "Radio",
-    "data": "Radio Data"
+    "data": "Radio Data",
+    "addEntry": "Add Radio Entry"
   },
   "graph": {
-    "title": "Graphing Tool"
+    "title": "Graphing Tool",
+    "loadTool": "Load Graphing Tool"
   },
   "table": {
+    "loadTool": "Load Tables Only",
     "id": "Unique ID",
     "date": "Date Recorded",
     "value": "Magnetometer Value",
@@ -56,7 +64,7 @@
   },
   "esa": {
     "title": "ESA",
-    "data": "ESA Data"
+    "data": "ESA Data",
+    "addEntry": "Add ESA Entry"
   }
 }
-

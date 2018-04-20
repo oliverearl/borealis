@@ -20,6 +20,7 @@ class Magneto
     private $locale;
     private $database;
     private $renderer;
+    private $retriever;
 
 
     public static function init()
@@ -41,6 +42,7 @@ class Magneto
         $this->locale =             Locale::getLocale();
         $this->database =           Connector::getInstance();
         $this->renderer =           new Renderer();
+        $this->retriever =          new Retriever();
 
         $this->start();
     }

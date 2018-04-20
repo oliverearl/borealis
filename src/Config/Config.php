@@ -14,7 +14,11 @@ class Config
         'username' =>       'ole4',
         'password' =>       '***REMOVED***',
         'dbType' =>         'mysql',
-        'maxElements' =>    4
+        'maxElements' =>    4,
+        'magnetometer_hostname' => 'imapspc0017.imaps.aber.ac.uk',
+        'magnetometer_username' => 'imaps\ole4',
+        'magnetometer_password' => '',
+        'magnetometer_share' => 'magdata'
     );
 
     private function __construct() {}

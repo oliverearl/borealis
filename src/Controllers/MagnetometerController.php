@@ -62,6 +62,7 @@ class MagnetometerController
     {
         $magnetometer = null;
         $array = [];
+
         foreach ($ids as $id) {
             $magnetometer = $this->getObjectById($id);
             if (!is_null($magnetometer)) {
@@ -72,8 +73,12 @@ class MagnetometerController
     }
 
     /**
-     * @param $magnetometers
-     * @return array
+     * A function to return JSON formatted for Chart.js from magnetometer objects.
+     * TODO: Fill in the rest of PHPDoc
+     * @param $magnetometers - An array of magnetometer objects
+     * @return array - Returns an associative array containing formatted JSON to be parsed by the graph template
+     * and injected into Chart.js at runtime.
+     *
      * [1]: https://stackoverflow.com/questions/44250066/how-to-pass-data-from-php-to-chart-js
      * [2]: https://processwire.com/talk/topic/12307-php-arrays-to-json-without/
      */

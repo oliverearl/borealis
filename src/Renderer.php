@@ -15,6 +15,7 @@ use ole4\Magneto\Controllers\MagnetometerController;
  * Class Renderer
  * @package ole4\Magneto
  * @author Oliver Earl <ole4@aber.ac.uk>
+ * TODO: PHPDoc
  */
 class Renderer
 {

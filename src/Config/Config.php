@@ -1,49 +1,60 @@
 <?php
 namespace ole4\Magneto\Config;
 
+use Exception;
+
+use WriteiniFile\WriteiniFile;
+
+use ole4\Magneto\Magneto;
+
 class Config
 {
-    private static $config = array(
-        'debug' =>          true,
-        'appName' =>        'Borealis',
-        'appVersion' =>     '1.2.0',
-        'appDescription' => 'Application',
-        'appAuthor' =>      'Oliver Earl',
-        'hostname' =>       'db.dcs.aber.ac.uk',
-        'dbName' =>         'ole4',
-        'username' =>       'ole4',
-        'password' =>       '***REMOVED***',
-        'dbType' =>         'mysql',
-        'maxElements' =>    4,
-        'magnetometer_hostname' => 'imapspc0017.imaps.aber.ac.uk',
-        'magnetometer_username' => 'imaps\ole4',
-        'magnetometer_password' => '',
-        'magnetometer_share' => 'magdata'
-    );
+    const CONFIGFILE = __DIR__ . '/../../storage/settings/settings.ini';
+
+    private static $config;
+    private static $writer;
 
     private function __construct() {}
 
     public static function getConfig()
     {
-        if (!isset(self::$config)) {
-            self::$config = self::loadConfig();
+        try {
+            if (!isset(self::$config)) {
+                self::$config = self::loadConfig();
+            }
+            self::$writer = new WriteiniFile(self::CONFIGFILE);
+        } catch (Exception $exception) {
+            Magneto::error('Error when initially setting up INI configuration file', $exception);
         }
         return self::$config;
     }
 
     private static function loadConfig()
     {
-        /**
-         * TODO: Load from proper INI file rather than hardcoded
-         */
+        if (file_exists(self::CONFIGFILE)) {
+            return parse_ini_file(self::CONFIGFILE);
+        }
         return null;
+    }
+
+    private static function saveConfig()
+    {
+        try {
+            $writer = self::$writer;
+
+            $writer->erase();
+            $writer->create(self::$config);
+            $writer->write();
+        } catch (Exception $exception) {
+            Magneto::error('Error when saving INI configuration file.', $exception);
+        }
     }
 
     public static function updateConfigEntry($key, $value)
     {
-        /** TODO: Write to file */
         if (array_key_exists($key, self::$config)) {
             self::$config[$key] = $value;
+            self::saveConfig();
         }
     }
 

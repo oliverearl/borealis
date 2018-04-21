@@ -9,6 +9,8 @@ use ole4\Magneto\Models\Magnetometer;
 
 class Retriever
 {
+    const STORAGE_DIR = __DIR__ . '../storage/csv';
+
     private static $instance;
     private $server;
     private $share;
@@ -57,14 +59,20 @@ class Retriever
 
     public function retrieveData($day = null)
     {
-        if (is_null($day)) {
-            $day = (date('z') + 1);
-        }
-        $year = date('Y');
-        $file = $this->share->read("{$year}/DATA{$day}");
+    }
 
-        var_dump($file);
-        die();
+    private function parseCSV($csv)
+    {
+        $r = array_map('str_getcsv', file($csv));
+        foreach ($r as $key => $d) {
+            $r[$key] = array_combine($r[0], $r[$key]);
+        }
+        return array_values(array_slice($r, 1));
+    }
+
+    private function saveParsedEntries($entries)
+    {
+
     }
 
     private static function retrievalWatchdog()

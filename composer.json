@@ -13,7 +13,8 @@
   "require": {
     "monolog/monolog": "^1.0",
     "twig/twig": "~1.0",
-    "sgrabaum/smb": "^1.0"
+    "sgrabaum/smb": "^1.0",
+    "magicalex/write-ini-file": "1.2.*"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.0"

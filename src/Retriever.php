@@ -6,7 +6,6 @@ use Exception;
 use Icewind\SMB\Server;
 
 use ole4\Magneto\Config\Config;
-use ole4\Magneto\Controllers\MagnetometerController;
 use ole4\Magneto\Models\Magnetometer;
 
 class Retriever
@@ -27,14 +26,10 @@ class Retriever
         if (isset(self::$instance)) {
             return self::$instance;
         }
-
-        if (self::retrievalWatchdog()) {
             self::$instance = new Retriever();
             return self::$instance;
-        }
-
-        return null;
     }
+
     public function __construct()
     {
         $this->host =       Config::getConfigEntry('magnetometer_hostname');
@@ -46,6 +41,8 @@ class Retriever
         $this->server = new Server($this->host, $this->username, $this->password);
         $this->share = $this->server->getShare($this->shareName);
     }
+
+    public function
 
     private function listAllFiles()
     {

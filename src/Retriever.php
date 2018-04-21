@@ -1,6 +1,8 @@
 <?php
 namespace ole4\Magneto;
 
+use Exception;
+
 use Icewind\SMB\Server;
 
 use ole4\Magneto\Config\Config;
@@ -9,7 +11,7 @@ use ole4\Magneto\Models\Magnetometer;
 
 class Retriever
 {
-    const STORAGE_DIR = __DIR__ . '../storage/csv';
+    const TEMP_FILE = __DIR__ . '/../storage/csv/temp.csv';
 
     private static $instance;
     private $server;
@@ -43,7 +45,6 @@ class Retriever
         // This is not a poltergeist class! The Retriever handles most of the interaction with the Server object.
         $this->server = new Server($this->host, $this->username, $this->password);
         $this->share = $this->server->getShare($this->shareName);
-        $this->retrieveData();
     }
 
     private function listAllFiles()
@@ -57,43 +58,100 @@ class Retriever
         }
     }
 
-    public function retrieveData($day = null)
+    public function retrieveData($day = null, $year = null)
     {
-    }
+        try {
+            if (is_null($day)) {
+                $day = sprintf('%03d', date('z'));
+            }
+            if ($day === '000') {
+                $day = '001'; // The magnetometer counts from 1... strange case for January 1st
+            }
+            if (is_null($year)) {
+                $year = date('Y');
+            }
 
-    private function parseCSV($csv)
-    {
-        $r = array_map('str_getcsv', file($csv));
-        foreach ($r as $key => $d) {
-            $r[$key] = array_combine($r[0], $r[$key]);
+            $name = "DATA{$day}.csv";
+            $tempFile = self::TEMP_FILE;
+            $dir = $this->share->dir($year);
+
+            foreach ($dir as $file) {
+                if ($file->getName() === $name) {
+                    $this->share->get($file->getPath(), $tempFile);
+                    return $this->newProcessData($tempFile);
+                }
+            }
+            return null;
+        } catch (Exception $exception) {
+            // Log failure to connect to magnetometer
+            self::$instance = null;
+            return null;
         }
-        return array_values(array_slice($r, 1));
     }
 
-    private function saveParsedEntries($entries)
-    {
-
-    }
-
-    private static function retrievalWatchdog()
-    {
+    private function processData($target) {
+        // Need to go through file line-by-line
+        if (!file_exists($target)) {
+            return null;
+        }
+        $entries = array_map('str_getcsv', file($target));
+        foreach ($entries as $entry) {
+            $formattedDate = date('Y-m-d H:i:s', Magnetometer::convertToUnix($entry[0]));
+            $magnetometer = new Magnetometer(
+                null,
+                $formattedDate, // Date
+                $entry[1], // Value
+                $entry[2], // Temperature
+                null
+            );
+            // Save it
+            $magnetometer->saveMagnetometer();
+        }
         return true;
-        // We should check whether or not a connection to the magnetometer is required
-        // First, let's grab a magnetometer controller
-        $controller = new MagnetometerController();
+    }
 
-        // With this in mind, let's grab the latest magnetometer entry
-        // The method returns an array remember, so grab the object from the array
-        $pop = $controller->getLatest();
-        $latestEntry = array_pop($pop);
+    private function newProcessData($target) {
+        try {
+            if (!file_exists($target)) {
+                return null;
+            }
 
-        // We need the timestamp from this object
-        $latestTimestamp = strtotime($latestEntry->getTimestamp());
+            $date = null;
+            $values = [];
+            $temps = [];
 
-        // And now grab the day of the year from it
-        // https://www.epochconverter.com/daynumbers
-        $latestYearDay = (date('z', $latestTimestamp) + 1);
+            $entries = array_map('str_getcsv', file($target));
+            foreach ($entries as $entry) {
+                $date = $entry[0];
+                array_push($values, $entry[1]);
+                array_push($temps, $entry[2]);
+            }
 
+            // Correctly convert and format the timestamp from labView to UNIX and into a date
+            $formattedDate = date('Y-m-d H:i:s', Magnetometer::convertToUnix($date));
 
+            // Remove any blanks so that averages aren't poisoned, and then find the average in the arrays
+            // https://stackoverflow.com/questions/33461430/how-to-find-average-from-array-in-php
+            $values =       array_filter($values);
+            $averageValue = array_sum($values) / count($values);
+
+            $temps =        array_filter($temps);
+            $averageTemp =  array_sum($temps) / count($temps);
+
+            // Write to database
+            $magnetometer = new Magnetometer(
+                null,
+                $formattedDate,
+                $averageValue,
+                $averageTemp,
+                null
+            );
+            $magnetometer->saveMagnetometer();
+            unlink($target);
+
+            return true;
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 }

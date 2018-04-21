@@ -8,7 +8,7 @@
 
 namespace ole4\Magneto\Models;
 
-use PDO;
+use ole4\Magneto\Database\Connector;
 
 class Magnetometer extends DataSource
 {
@@ -21,13 +21,27 @@ class Magnetometer extends DataSource
     private $temp;
     private $lastModified;
 
-    public function __construct($id, $timeParam, $valueParam, $tempParam, $lastModifiedParam)
+    public function __construct($id = null, $timeParam, $valueParam, $tempParam, $lastModifiedParam = null)
     {
         $this->id           = $id;
         $this->timestamp    = $timeParam;
         $this->value        = $valueParam;
         $this->temp         = $tempParam;
         $this->lastModified = $lastModifiedParam;
+    }
+
+    public function saveMagnetometer()
+    {
+        $time = $this->getTimestamp();
+        $value = $this->getValue();
+        $temp = $this->getValue();
+        $db = Connector::getInstance();
+
+        $stmt = $db->prepare('INSERT INTO magneto_meter (timestamp, value, temp) VALUES (:time, :value, :temp)');
+        $stmt->bindParam(':time',   $time);
+        $stmt->bindParam(':value',  $value);
+        $stmt->bindParam(':temp',   $temp);
+        $stmt->execute();
     }
 
     public function getId() {
@@ -90,18 +104,18 @@ class Magnetometer extends DataSource
         return $this->lastModified;
     }
 
-    public function dateToUnix($date)
+    public static function dateToUnix($date)
     {
         return strtotime($date);
     }
 
-    public function convertToUnix($lvTimestamp)
+    public static function convertToUnix($lvTimestamp)
     {
-        return ($lvTimestamp - $this::EPOCH_DIFF);
+        return ($lvTimestamp - self::EPOCH_DIFF);
     }
 
-    public function convertToLabView($unixTimestamp)
+    public static function convertToLabView($unixTimestamp)
     {
-        return ($unixTimestamp + $this::EPOCH_DIFF);
+        return ($unixTimestamp + self::EPOCH_DIFF);
     }
 }

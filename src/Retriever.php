@@ -78,7 +78,7 @@ class Retriever
             foreach ($dir as $file) {
                 if ($file->getName() === $name) {
                     $this->share->get($file->getPath(), $tempFile);
-                    return $this->newProcessData($tempFile);
+                    return $this->processData($tempFile);
                 }
             }
             return null;
@@ -89,7 +89,7 @@ class Retriever
         }
     }
 
-    private function processData($target) {
+    private function oldProcessData($target) {
         // Need to go through file line-by-line
         if (!file_exists($target)) {
             return null;
@@ -110,7 +110,7 @@ class Retriever
         return true;
     }
 
-    private function newProcessData($target) {
+    private function processData($target) {
         try {
             if (!file_exists($target)) {
                 return null;

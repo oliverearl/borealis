@@ -30,7 +30,7 @@ class MagnetometerController
         }
 
         $stmt = $this->db->prepare('SELECT * FROM magneto_meter WHERE id = :key ORDER BY id ASC');
-        $stmt->bindParam(':key', $id);
+        $stmt->bindParam(':key', $id, PDO::PARAM_INT);
         $stmt->execute();
         $result =  $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -38,6 +38,18 @@ class MagnetometerController
             return null;
         }
 
+        return $result;
+    }
+
+    public function getByDate($date) {
+        $stmt = $this->db->prepare("SELECT * FROM magneto_meter WHERE timestamp = :timestamp LIMIT 1");
+        $stmt->bindParam(':timestamp', $date);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (is_null($result['timestamp'])) {
+            return null;
+        }
         return $result;
     }
 

@@ -25,6 +25,7 @@ class Magneto
 
     public static function init()
     {
+
         self::configureTimezone();
         self::configureErrors();
         self::configureSession();
@@ -53,7 +54,7 @@ class Magneto
         $this->renderer->route();
 
         // Retrieve and other services
-        // TODO Magnetometer retrieval
+        $this->retriever->watchdog();
     }
 
     private static function configureTimezone()
@@ -71,7 +72,7 @@ class Magneto
 
         try {
             self::$logger = new Logger('logger');
-            self::$logger->pushHandler(new StreamHandler('../storage/logs/errors', Logger::ERROR));
+            self::$logger->pushHandler(new StreamHandler(__DIR__ . '../storage/logs/errors.log', Logger::ERROR));
         } catch (Exception $exception) {
             self::error('Error Logging Failure', $exception);
         }
@@ -79,10 +80,15 @@ class Magneto
 
     private static function configureSession()
     {
-        // TODO: Configure session save location to storage folder
         if(!isset($_SESSION))
         {
             session_start();
+            if (isset($_SESSION['error'])) {
+                unset($_SESSION['error']);
+            }
+            if (isset($_SESSION['success'])) {
+                unset($_SESSION['success']);
+            }
         }
     }
 
@@ -93,7 +99,7 @@ class Magneto
 
     public static function error($description, $exception)
     {
-        if (Config::getConfigEntry('debug')) {
+        if (Config::getConfigEntry( 'debug')) {
             trigger_error("{$description} {$exception}", E_USER_ERROR);
         } else {
             echo 'Fatal Error - Information not displayed due to Production mode. Please contact developer.';

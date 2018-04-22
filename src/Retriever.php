@@ -6,6 +6,7 @@ use Exception;
 use Icewind\SMB\Server;
 
 use ole4\Magneto\Config\Config;
+use ole4\Magneto\Controllers\MagnetometerController;
 use ole4\Magneto\Models\Magnetometer;
 
 class Retriever
@@ -20,6 +21,7 @@ class Retriever
     private $username;
     private $password;
     private $shareName;
+    private $lastRetrieval;
 
     public static function getInstance()
     {
@@ -32,17 +34,29 @@ class Retriever
 
     public function __construct()
     {
-        $this->host =       Config::getConfigEntry('magnetometer_hostname');
-        $this->username =   Config::getConfigEntry('magnetometer_username');
-        $this->password =   Config::getConfigEntry('magnetometer_password');
-        $this->shareName =  Config::getConfigEntry('magnetometer_share');
+        $this->host =           Config::getConfigEntry('magnetometer_hostname');
+        $this->username =       Config::getConfigEntry('magnetometer_username');
+        $this->password =       Config::getConfigEntry('magnetometer_password');
+        $this->shareName =      Config::getConfigEntry('magnetometer_share');
+        $this->lastRetrieval =  Config::getConfigEntry('magnetometer_latest');
 
         // This is not a poltergeist class! The Retriever handles most of the interaction with the Server object.
         $this->server = new Server($this->host, $this->username, $this->password);
         $this->share = $this->server->getShare($this->shareName);
     }
 
-    public function
+    public function watchdog()
+    {
+        $date = sprintf('%03d', date('z'));
+        if ($date === '000') {
+            $date = '001';
+        }
+        if ($date !== $this->lastRetrieval || (isset($_GET['override']) && $_GET['override'] === 'true')) {
+            echo "<script>alert('Hello World');</script>";
+            $this->retrieveData();
+            $this->setRetrieval($date);
+        }
+    }
 
     private function listAllFiles()
     {
@@ -50,9 +64,13 @@ class Retriever
 
         foreach ($content as $info) {
             echo $info->getName();
-            echo $info->getMTime();
             echo '<br>';
         }
+    }
+
+    public function setRetrieval($date)
+    {
+        Config::updateConfigEntry('magnetometer_latest', $date);
     }
 
     public function retrieveData($day = null, $year = null)
@@ -67,17 +85,18 @@ class Retriever
             if (is_null($year)) {
                 $year = date('Y');
             }
-
+            $day = 110;
             $name = "DATA{$day}.csv";
             $tempFile = self::TEMP_FILE;
             $dir = $this->share->dir($year);
-
             foreach ($dir as $file) {
                 if ($file->getName() === $name) {
                     $this->share->get($file->getPath(), $tempFile);
+                    echo "<script>alert('Got the file I wanted!');</script>";
                     return $this->processData($tempFile);
                 }
             }
+            echo "<script>alert('Didnt find it');</script>";
             return null;
         } catch (Exception $exception) {
             // Log failure to connect to magnetometer
@@ -134,6 +153,7 @@ class Retriever
 
             $temps =        array_filter($temps);
             $averageTemp =  array_sum($temps) / count($temps);
+            echo "<script>alert('I processed all that data');</script>";
 
             // Write to database
             $magnetometer = new Magnetometer(
@@ -143,9 +163,21 @@ class Retriever
                 $averageTemp,
                 null
             );
-            $magnetometer->saveMagnetometer();
-            unlink($target);
 
+            $controller = new MagnetometerController();
+            echo "<script>alert('I established the controller');</script>";
+            $result = $controller->getByDate($magnetometer->getTimestamp());
+            echo "<script>alert('Summoned the controller and got what I wanted');</script>";
+
+            if (!is_null($result)) {
+                echo "<script>alert('Record {$magnetometer->getTimestamp()} already exists.');</script>";
+                unlink($target);
+                return null;
+            }
+
+            $magnetometer->saveMagnetometer();
+            echo "<script>alert('Record {$magnetometer->getTimestamp()} retrieval successful.');</script>";
+            unlink($target);
             return true;
         } catch (Exception $exception) {
             return null;

@@ -3,58 +3,57 @@ namespace ole4\Magneto\Config;
 
 use Exception;
 
-use WriteiniFile\WriteiniFile;
-
 use ole4\Magneto\Magneto;
 
 class Config
 {
-    const CONFIGFILE = __DIR__ . '/../../storage/settings/settings.ini';
+    const CONFIG_FILE = __DIR__ . '/../../storage/settings/settings.php';
 
     private static $config;
-    private static $writer;
 
-    private function __construct() {}
+    private function __construct() { }
+
+    public static function getInstance()
+    {
+        return self::getConfig();
+    }
 
     public static function getConfig()
     {
-        try {
-            if (!isset(self::$config)) {
+        try
+        {
+            if (!isset(self::$config))
+            {
                 self::$config = self::loadConfig();
             }
-            self::$writer = new WriteiniFile(self::CONFIGFILE);
-        } catch (Exception $exception) {
-            Magneto::error('Error when initially setting up INI configuration file', $exception);
+            return self::$config;
         }
-        return self::$config;
+        catch (Exception $exception)
+        {
+            Magneto::error('Error during config load.', $exception);
+            return null;
+        }
     }
 
     private static function loadConfig()
     {
-        if (file_exists(self::CONFIGFILE)) {
-            return parse_ini_file(self::CONFIGFILE);
+        if (file_exists(self::CONFIG_FILE)) {
+            return require_once self::CONFIG_FILE;
         }
-        return null;
+        throw new Exception('Config file not found.');
     }
 
-    private static function saveConfig()
+    private static function saveConfigToDisk()
     {
-        try {
-            $writer = self::$writer;
-
-            $writer->erase();
-            $writer->create(self::$config);
-            $writer->write();
-        } catch (Exception $exception) {
-            Magneto::error('Error when saving INI configuration file.', $exception);
+        try
+        {
+            file_put_contents(self::CONFIG_FILE, '<?php return ' . var_export(self::$config, true) . ';');
+            return true;
         }
-    }
-
-    public static function updateConfigEntry($key, $value)
-    {
-        if (array_key_exists($key, self::$config)) {
-            self::$config[$key] = $value;
-            self::saveConfig();
+        catch (Exception $exception)
+        {
+            Magneto::error('Error saving config to disk.', $exception);
+            return null;
         }
     }
 
@@ -64,5 +63,13 @@ class Config
             return self::$config[$key];
         }
         return null;
+    }
+
+    public static function updateConfigEntry($key, $value)
+    {
+        if (isset(self::$config[$key])) {
+            self::$config[$key] = $value;
+            self::saveConfigToDisk();
+        }
     }
 }

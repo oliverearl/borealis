@@ -151,6 +151,7 @@ class Renderer
 
     private function registerGlobals()
     {
+        $this->twig->addGlobal('session', $_SESSION);
         $this->twig->addGlobal('config', Config::getConfig());
         $this->twig->addGlobal('database', Connector::getInstance());
         $this->twig->addGlobal('language', Locale::getLanguage());

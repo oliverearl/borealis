@@ -12,8 +12,8 @@
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
                         {% if objects is not empty %}
-                            <button class="btn btn-sm btn-outline-secondary" disabled>{{ locale.exportXML }}</button>
-                            <button class="btn btn-sm btn-outline-secondary" disabled>{{ locale.exportJSON }}</button>
+                            <a class="btn btn-sm btn-outline-secondary" target="_blank" href="{{ xmlApi }}">{{ locale.exportXML }}</a>
+                            <a class="btn btn-sm btn-outline-secondary" target="_blank" href="{{ jsonApi }}">{{ locale.exportJSON }}</a>
                             <button name="btn-bar"
                                     class="btn btn-sm btn-outline-secondary"
                                     onclick="switchType('bar')">
@@ -39,14 +39,15 @@
                 {% include 'partials/data.php.twig' %}
             {% if config.debug %}
             <hr>
-                <h2>Debugger</h2>
-                <h3>IDs of Parameters</h3>
+                <h2>{{ locale.debugger.debugMode }}</h2>
+                <p>{{ locale.debugger.debugInfo }}</p>
+                <h3>{{ locale.debugger.parameterIds }}</h3>
                 {{ entries | var_dump }}
             <hr>
-                <h3>Retrieved Magnetometer Objects</h3>
+                <h3>{{ locale.debugger.retrieved }}</h3>
                 {{ objects | var_dump }}
             <hr>
-                <h3>Chart.js JSON</h3>
+                <h3>{{ locale.debugger.chartjs }}</h3>
                 {{ json | var_dump }}
             {% endif %}
             {% endif %}

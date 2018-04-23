@@ -68,38 +68,47 @@ class Renderer
                     $entries =      $this->additionalData();
                     $objects =      $this->magnetometer->getObjectsFromIds($entries);
                     $graphJson =    $this->magnetometer->getGraphJsonFromObjects($objects);
+                    $apiPaths =     $this->apiPathBuilder($entries);
                     $this->loadPage('graph', [
                         'entries'   => $entries,
                         'objects'   => $objects,
-                        'json'      => $graphJson
+                        'json'      => $graphJson,
+                        'jsonApi'   => $apiPaths,
+                        'xmlApi'    => $apiPaths . 'xml=true'
                     ]);
                     break;
                 case 'table':
-                    $entries = $this->additionalData();
-                    $objects = $this->magnetometer->getObjectsFromIds($entries);
+                    $entries =  $this->additionalData();
+                    $objects =  $this->magnetometer->getObjectsFromIds($entries);
                     $this->loadPage('table', [
                         'entries'   => $entries,
-                        'objects'   => $objects
+                        'objects'   => $objects,
                     ]);
                     break;
                 case 'all':
                     $objects =      $this->magnetometer->getAll();
                     $entries =      $this->magnetometer->getIdsFromObjectsArray($objects);
                     $graphJson =    $this->magnetometer->getGraphJsonFromObjects($objects);
+                    $apiPaths =     $this->apiPathBuilder($entries);
                     $this->loadPage('graph', [
                        'objects'    => $objects,
                        'entries'    => $entries,
-                       'json'       => $graphJson
+                       'json'       => $graphJson,
+                       'jsonApi'   => $apiPaths,
+                       'xmlApi'    => $apiPaths . 'xml=true'
                     ]);
                     break;
                 case 'latest':
                     $objects =       $this->magnetometer->getLatest();
                     $entries =       $this->magnetometer->getIdsFromObjectsArray($objects);
                     $graphJson =     $this->magnetometer->getGraphJsonFromObjects($objects);
+                    $apiPaths =      $this->apiPathBuilder($entries);
                     $this->loadPage('graph', [
                         'objects'   => $objects,
                         'entries'   => $entries,
-                        'json'      => $graphJson
+                        'json'      => $graphJson,
+                        'jsonApi'   => $apiPaths,
+                        'xmlApi'    => $apiPaths . 'xml=true'
                     ]);
                     break;
                 case 'home':
@@ -184,5 +193,16 @@ class Renderer
                 $_SESSION['timer'] = time();
             }
         }
+    }
+
+    private function apiPathBuilder($ids)
+    {
+        $pathToApi = 'api.php?';
+        $i = 0;
+        foreach ($ids as $id) {
+            $pathToApi .= "values[{$i}]={$id}&";
+            $i++;
+        }
+        return $pathToApi;
     }
 }

@@ -44,6 +44,13 @@
     "noDataFound": "No Data Found",
     "noDataSelected": "No Data Selected"
   },
+  "debugger": {
+    "debugMode": "Graphing Tool Debugger",
+    "debugInfo": "Because the program is running in debug mode, extra information on retrieved data is available. Please make sure this mode is disabled before going into production!",
+    "parameterIds": "IDs of Parameters",
+    "retrieved" : "Retrieved Magnetometer Objects",
+    "chartjs" : "Chart.js JSON"
+  },
   "home": {
     "title": "Dashboard",
     "subtitle": "Important Information",

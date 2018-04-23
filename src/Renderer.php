@@ -168,6 +168,7 @@ class Renderer
         $this->twig->addGlobal('database', Connector::getInstance());
         $this->twig->addGlobal('language', Locale::getLanguage());
         $this->twig->addGlobal('locale', Locale::getLocale());
+        $this->twig->addGlobal('csrf', $_SESSION['token']);
 
         $this->twig->addGlobal('errors', $this->addSession('errors'));
         $this->twig->addGlobal('successes', $this->addSession('successes'));

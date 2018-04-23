@@ -36,7 +36,7 @@
                 {% endfor %}
 
                 <input type="hidden" name="number" id="number" value="{{ (config.maxElements - 1) }}">
-                <input type="hidden" name="csrf_check" id="csrf_check" value="">
+                <input type="hidden" name="csrf_check" id="csrf_check" value="{{ csrf }}">
 
                 <hr class="mb-4">
                 <div class="btn-group form-inline">

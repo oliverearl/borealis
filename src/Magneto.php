@@ -50,11 +50,27 @@ class Magneto
 
     private function start()
     {
+        // CSRF Watchdog
+        $this->csrfWatchdog();
+
         // Retrieve and other services
         $this->retriever->watchdog();
 
         // Router Templater Hybrid
         $this->renderer->route();
+    }
+
+    private function csrfWatchdog()
+    {
+        if (empty($_SESSION['token'])) {
+            $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
+        }
+
+        if (!empty($_POST)) {
+            if (empty($_POST['csrf_check']) || !hash_equals($_POST['csrf_check'], $_SESSION['token'])) {
+                Magneto::error('csrf_violation', 'CSRF Violation');
+            }
+        }
     }
 
     private static function configureTimezone()
@@ -104,6 +120,9 @@ class Magneto
     {
         try
         {
+            if ($description === 'csrf_violation') {
+                new Exception('CSRF violation');
+            }
             $locale = Locale::getLocale();
             $localisedException = $description;
             if (isset($locale[$description])) {

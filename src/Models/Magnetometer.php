@@ -34,7 +34,7 @@ class Magnetometer extends DataSource
     {
         $time = $this->getTimestamp();
         $value = $this->getValue();
-        $temp = $this->getValue();
+        $temp = $this->getTemp();
         $db = Connector::getInstance();
 
         $stmt = $db->prepare('INSERT INTO magneto_meter (timestamp, value, temp) VALUES (:time, :value, :temp)');

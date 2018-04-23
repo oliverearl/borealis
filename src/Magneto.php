@@ -78,7 +78,7 @@ class Magneto
         {
             self::$logger = new Logger('logger');
             self::$logger->pushHandler(new StreamHandler(
-                __DIR__ . '../storage/logs/errors.log',
+              'storage/logs/errors.log',
                 Logger::ERROR));
         }
         catch (Exception $exception)

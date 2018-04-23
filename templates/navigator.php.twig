@@ -6,7 +6,9 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                 <h1 class="h2">{{ locale.magnetometer.navigateEntries }}</h1>
                 <p>{{ locale.magnetometer.description }}</p>
+
             </div>
+            <div class="alert alert-info">{{ locale.magnetometer.changeEntries | raw }}</div>
         </main>
     </div>
     <div class="row">
@@ -29,11 +31,6 @@
                                 <option value="{{ object.getId() }}">{{ object.getTimestamp() }}</option>
                                 {% endfor %}
                             </select>
-                            <button id="btn_delete[{{ i }}]"
-                                    class="btn btn-danger btn-block"
-                                    onclick="deleteEntry({{ i }})">
-                                {{ locale.deleteEntry }}
-                            </button>
                         </div>
                     </div>
                 {% endfor %}

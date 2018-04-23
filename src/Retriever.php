@@ -12,6 +12,7 @@ use ole4\Magneto\Models\Magnetometer;
 class Retriever
 {
     const TEMP_FILE = __DIR__ . '/../storage/csv/temp.csv';
+    const LOG_FILE = __DIR__ . '/../storage/logs/magnetometer/magnetometer.log';
 
     private static $instance;
     private $server;
@@ -88,6 +89,7 @@ class Retriever
             $name = "DATA{$day}.csv";
             $tempFile = self::TEMP_FILE;
             $dir = $this->share->dir($year);
+
             foreach ($dir as $file) {
                 if ($file->getName() === $name) {
                     $this->share->get($file->getPath(), $tempFile);
@@ -171,13 +173,23 @@ class Retriever
             }
 
             $magnetometer->saveMagnetometer();
+
             $_SESSION['successes'][] = 'record_retrieved';
+            $this->log("Record {$formattedDate} retrieved.");
             $this->setRetrieval($date);
+
             unlink($target);
             return true;
         } catch (Exception $exception) {
             Magneto::error('magnetometer_failure', $exception);
             return null;
         }
+    }
+
+    private function log($status)
+    {
+        $date = date('d-m-Y H:m:s');
+        $toPrint = "{$date}: Magnetometer: {$status} \n\n";
+        file_put_contents(self::LOG_FILE, $toPrint, FILE_APPEND);
     }
 }

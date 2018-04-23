@@ -13,7 +13,10 @@
 {% include ('partials/topnav.php.twig') %}
 <div class="container-fluid">
 {% include ('partials/navigation.php.twig') %}
-{% block content %}{% endblock %}
+{% include ('partials/alert.php.twig') %}
+    <script>alert('{{ errors | var_dump }}');</script>
+{% block content %}
+{% endblock %}
 </div>
 {% include ('partials/scripts.php.twig') %}
 <!-- Optional Injections -->

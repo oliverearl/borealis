@@ -47,14 +47,16 @@ class Retriever
 
     public function watchdog()
     {
-        $date = sprintf('%03d', date('z'));
-        if ($date === '000') {
-            $date = '001';
-        }
+        $date = sprintf('%03d', date('z') + 1);
         if ($date !== $this->lastRetrieval || (isset($_GET['override']) && $_GET['override'] === 'true')) {
-            echo "<script>alert('Hello World');</script>";
-            $this->retrieveData();
-            $this->setRetrieval($date);
+            $result = $this->retrieveData();
+            if (is_null($result)) {
+                if (isset($_GET['override'])) {
+                    Magneto::error('override_failure', 'Override unsuccessful. Records missing or already existing.');
+                } else {
+                    Magneto::error('magnetometer_failure', "Today's magnetometer entry cannot be found.");
+                }
+            }
         }
     }
 
@@ -77,29 +79,25 @@ class Retriever
     {
         try {
             if (is_null($day)) {
-                $day = sprintf('%03d', date('z'));
+                $day = sprintf('%03d', date('z') + 1);
             }
-            if ($day === '000') {
-                $day = '001'; // The magnetometer counts from 1... strange case for January 1st
-            }
+
             if (is_null($year)) {
                 $year = date('Y');
             }
-            $day = 110;
             $name = "DATA{$day}.csv";
             $tempFile = self::TEMP_FILE;
             $dir = $this->share->dir($year);
             foreach ($dir as $file) {
                 if ($file->getName() === $name) {
                     $this->share->get($file->getPath(), $tempFile);
-                    echo "<script>alert('Got the file I wanted!');</script>";
                     return $this->processData($tempFile);
                 }
             }
-            echo "<script>alert('Didnt find it');</script>";
+            $_SESSION['errors'][] = 'record_missing';
             return null;
         } catch (Exception $exception) {
-            // Log failure to connect to magnetometer
+            Magneto::error('magentometer_failure', $exception);
             self::$instance = null;
             return null;
         }
@@ -153,7 +151,6 @@ class Retriever
 
             $temps =        array_filter($temps);
             $averageTemp =  array_sum($temps) / count($temps);
-            echo "<script>alert('I processed all that data');</script>";
 
             // Write to database
             $magnetometer = new Magnetometer(
@@ -165,21 +162,21 @@ class Retriever
             );
 
             $controller = new MagnetometerController();
-            echo "<script>alert('I established the controller');</script>";
             $result = $controller->getByDate($magnetometer->getTimestamp());
-            echo "<script>alert('Summoned the controller and got what I wanted');</script>";
 
             if (!is_null($result)) {
-                echo "<script>alert('Record {$magnetometer->getTimestamp()} already exists.');</script>";
+                $_SESSION['errors'][] = 'record_exists';
                 unlink($target);
                 return null;
             }
 
             $magnetometer->saveMagnetometer();
-            echo "<script>alert('Record {$magnetometer->getTimestamp()} retrieval successful.');</script>";
+            $_SESSION['successes'][] = 'record_retrieved';
+            $this->setRetrieval($date);
             unlink($target);
             return true;
         } catch (Exception $exception) {
+            Magneto::error('magnetometer_failure', $exception);
             return null;
         }
     }

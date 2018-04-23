@@ -23,7 +23,22 @@
     "about": "About Program",
     "settings": "Settings"
   },
+  "error": "Error:",
+  "success": "Success:",
+  "successes": {
+    "record_retrieved": "The latest record has been successfully pulled from the magnetometer."
+  },
   "errors": {
+    "record_exists": "The latest magnetometer record already exists in the database.",
+    "record_missing": "The magnetometer record set to be retrieved today appears to be missing or inaccessible.",
+    "magnetometer_failure": "Failure attempting to retrieve data from the magnetometer.",
+    "logger_failure": "The system logging functionality has failed.",
+    "database_failure": "A connection to the database cannot be established.",
+    "locale_failure": "A locale error has occurred.",
+    "locale_json_failure": "The locale JSON is corrupted or malformed.",
+    "locale_json_missing": "The locale JSON is missing or inaccessible.",
+    "override_failure": "Magnetometer data could not be manually retrieved.",
+    "renderer_failure": "The templating system failured to render.",
     "general": "An error has occurred. Since this is production mode, the info is hidden, just let the dev know!",
     "javascript": "This program requires JavaScript enabled to run.",
     "noDataFound": "No Data Found",

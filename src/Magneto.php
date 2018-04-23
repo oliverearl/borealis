@@ -50,11 +50,11 @@ class Magneto
 
     private function start()
     {
-        // Router Templater Hybrid
-        $this->renderer->route();
-
         // Retrieve and other services
         $this->retriever->watchdog();
+
+        // Router Templater Hybrid
+        $this->renderer->route();
     }
 
     private static function configureTimezone()
@@ -64,17 +64,26 @@ class Magneto
 
     private static function configureErrors()
     {
+        ini_set('display_errors', 0);
+        ini_set('display_startup_errors', 0);
+        error_reporting(0);
+
         if (Config::getConfigEntry('debug')) {
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
         }
 
-        try {
+        try
+        {
             self::$logger = new Logger('logger');
-            self::$logger->pushHandler(new StreamHandler(__DIR__ . '../storage/logs/errors.log', Logger::ERROR));
-        } catch (Exception $exception) {
-            self::error('Error Logging Failure', $exception);
+            self::$logger->pushHandler(new StreamHandler(
+                __DIR__ . '../storage/logs/errors.log',
+                Logger::ERROR));
+        }
+        catch (Exception $exception)
+        {
+            self::error('logger_failure', $exception);
         }
     }
 
@@ -83,12 +92,6 @@ class Magneto
         if(!isset($_SESSION))
         {
             session_start();
-            if (isset($_SESSION['error'])) {
-                unset($_SESSION['error']);
-            }
-            if (isset($_SESSION['success'])) {
-                unset($_SESSION['success']);
-            }
         }
     }
 
@@ -99,17 +102,25 @@ class Magneto
 
     public static function error($description, $exception)
     {
-        if (Config::getConfigEntry( 'debug')) {
-            trigger_error("{$description} {$exception}", E_USER_ERROR);
-        } else {
-            echo 'Fatal Error - Information not displayed due to Production mode. Please contact developer.';
+        try
+        {
+            $locale = Locale::getLocale();
+            $localisedException = $description;
+            if (isset($locale[$description])) {
+                $localisedException = $locale[$description];
+            }
+            $_SESSION['errors'][] = $localisedException;
+            self::logError("{$localisedException} {$exception}");
         }
-        self::logError("{$description} {$exception}");
-        die();
+        catch (Exception $exception)
+        {
+            trigger_error("Unrecoverable error. Please contact developer. <br>Exception: {$exception}",
+                E_USER_ERROR);
+        }
+
     }
 
     private static function logError($error) {
         self::$logger->error($error);
     }
-
 }

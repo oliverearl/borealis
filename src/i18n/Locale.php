@@ -1,6 +1,8 @@
 <?php
 namespace ole4\Magneto\i18n;
 
+use ole4\Magneto\Magneto;
+
 class Locale
 {
     const LANGUAGES = ['en', 'cy'];
@@ -76,12 +78,12 @@ class Locale
             $json = json_decode(file_get_contents($dataset), true);
 
             if (is_null($json)) {
-                trigger_error('Locale extraction failure: ' . json_last_error_msg(), E_USER_ERROR);
+                Magneto::error('locale_json_failure', json_last_error_msg());
             }
             self::$locale = $json;
             return;
         }
-        trigger_error('Locale file not found.', E_USER_ERROR);
+        Magneto::error('locale_json_missing', json_last_error_msg());
         self::$locale = null;
     }
 }

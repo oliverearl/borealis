@@ -10,5 +10,4 @@ namespace ole4\Magneto\Models;
 
 abstract class DataSource
 {
-
 }

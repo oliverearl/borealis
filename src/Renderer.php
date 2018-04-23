@@ -113,10 +113,14 @@ class Renderer
 
     private function loadPage($page, $params = [])
     {
-        try {
+        try
+        {
             echo $this->twig->render("{$page}.php.twig", $params);
-        } catch (Twig_Error $exception) {
-            Magneto::error('Renderer Error', $exception);
+            $this->resetSession();
+        }
+        catch (Twig_Error $exception)
+        {
+            Magneto::error('renderer_failure', $exception);
         }
     }
 
@@ -151,11 +155,34 @@ class Renderer
 
     private function registerGlobals()
     {
-        $this->twig->addGlobal('session', $_SESSION);
         $this->twig->addGlobal('config', Config::getConfig());
         $this->twig->addGlobal('database', Connector::getInstance());
         $this->twig->addGlobal('language', Locale::getLanguage());
         $this->twig->addGlobal('locale', Locale::getLocale());
+
+        $this->twig->addGlobal('errors', $this->addSession('errors'));
+        $this->twig->addGlobal('successes', $this->addSession('successes'));
     }
 
+    private function addSession($session)
+    {
+        if (isset($_SESSION[$session])) {
+            $storage = $_SESSION[$session];
+            return $storage;
+        }
+        else return null;
+    }
+
+    private function resetSession()
+    {
+        if (isset($_SESSION['errors']) || isset($_SESSION['successes'])) {
+            if (isset($_SESSION['timer'])) {
+                if ($_SESSION['timer'] !== time()) {
+                    unset($_SESSION['errors'], $_SESSION['successes'], $_SESSION['timer']);
+                }
+            } else {
+                $_SESSION['timer'] = time();
+            }
+        }
+    }
 }

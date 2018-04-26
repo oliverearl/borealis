@@ -20,6 +20,7 @@
   "december": "December",
   "deleteEntry": "Delete Entry",
   "app": {
+    "homepage": "Homepage",
     "about": "About Program",
     "settings": "Settings"
   },
@@ -53,13 +54,24 @@
   },
   "home": {
     "title": "Dashboard",
-    "subtitle": "Important Information",
-    "introduction": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    "subtitle": "Required Declaration:",
+    "introduction": "The information provided on this and other pages by me, Oliver Earl (ole4@aber.ac.uk), is under my own personal responsibility and not that of the Aberystwyth University. Similarly, any opinions expressed are my own and are in no way to be taken as those of Aberystwyth University.",
+    "welsh-notice": "Machine Translation",
+    "welsh-text": "The Welsh used in this program is not currently accurate, as machine translations are currently used as placeholders."
+  },
+  "about" : {
+    "title": "About",
+    "introduction": "Introduction",
+    "p1": "",
+    "functionality": "What can Borealis do?",
+    "libraries": "Libraries used:",
+    "limitations": "Known Issues:",
+    "unimplemented": "Unimplemented Functionality"
   },
   "magnetometer": {
     "title": "Magnetometer",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "changeEntries": "Want to change the number of entries? You can do so from the <a href=\"index.php?page=settings\">Settings</a> page.",
+    "description": "Data entries returned from the magnetometer can be viewed here and sent to either the Graphing Tool, or displayed as tabular data. As there might be times where choosing multiple of the same entry is desired, this functionality is left intact. The magnetometer takes hundreds of readings each day, so this tool provides an average for both value and temperature from that day to compensate for such a large set of data. Dramatic shifts in magnetosphere strength or temperature of the device caused by solar event, harsh weather, or otherwise should nevertheless still be reflected within the data.",
+    "changeEntries": "Dynamic entries are currently unimplemented. If you want to change the number of entries, you can do so from the <a href=\"index.php?page=settings\">Settings</a> page.",
     "latestEntry": "Latest Entry",
     "displayAll": "Display All",
     "navigateEntries": "Navigate Entries",
@@ -85,7 +97,7 @@
     "date": "Date Recorded",
     "value": "Magnetometer Value",
     "temp": "Instrument Temperature",
-    "unix": "Unix Timestamp",
+    "unix": "UNIX Timestamp",
     "labview": "labVIEW Timestamp"
   },
   "esa": {

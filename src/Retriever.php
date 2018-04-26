@@ -51,6 +51,7 @@ class Retriever
         $date = sprintf('%03d', date('z') + 1);
         if ($date !== $this->lastRetrieval || (isset($_GET['override']) && $_GET['override'] === 'true')) {
             $result = $this->retrieveData();
+            $this->lastRetrieval = $date;
             if (is_null($result)) {
                 if (isset($_GET['override'])) {
                     Magneto::error('override_failure', 'Override unsuccessful. Records missing or already existing.');
@@ -58,16 +59,6 @@ class Retriever
                     Magneto::error('magnetometer_failure', "Today's magnetometer entry cannot be found.");
                 }
             }
-        }
-    }
-
-    private function listAllFiles()
-    {
-        $content = $this->share->dir('2018');
-
-        foreach ($content as $info) {
-            echo $info->getName();
-            echo '<br>';
         }
     }
 

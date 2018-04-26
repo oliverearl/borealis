@@ -25,7 +25,6 @@ class Magneto
 
     public static function init()
     {
-
         self::configureTimezone();
         self::configureErrors();
         self::configureSession();
@@ -42,6 +41,7 @@ class Magneto
         $this->currentLanguage =    Locale::getLanguage();
         $this->locale =             Locale::getLocale();
         $this->database =           Connector::getInstance();
+
         $this->renderer =           new Renderer();
         $this->retriever =          new Retriever();
 

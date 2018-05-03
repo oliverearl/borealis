@@ -32,7 +32,6 @@ class Locale
         }
 
         $_SESSION['language'] = self::$language;
-        // echo "<h1>{$_SESSION['language']}</h1>";
     }
 
     private static function determineLanguage()

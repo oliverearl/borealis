@@ -2,10 +2,10 @@
 namespace ole4\Magneto\Database;
 
 use ole4\Magneto\Magneto;
+use ole4\Magneto\Config\Config;
+
 use PDO;
 use PDOException;
-
-use ole4\Magneto\Config\Config;
 
 class Connector
 {

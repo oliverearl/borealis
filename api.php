@@ -10,7 +10,7 @@ if (isset($_GET)) {
 } elseif (isset($_POST)) {
     $api = new API($_POST);
 } else {
-    die;
+    http_response_code(400);
 }
 
 class API
@@ -18,17 +18,17 @@ class API
     private $config;
     private $db;
     private $controller;
-
     private $dataFormat;
 
     public function __construct($input)
     {
         if (empty($input)) {
-            die;
+            http_response_code(400);
+            exit();
         }
 
-        $this->config =     Config::getConfig();
-        $this->db =         Connector::getInstance();
+        $this->config = Config::getConfig();
+        $this->db = Connector::getInstance();
         $this->controller = new MagnetometerController();
 
         $this->handleRequest($input);
@@ -36,47 +36,51 @@ class API
 
     private function handleRequest($input)
     {
-
-        $magnetometers = [];
-        $this->dataFormat = 'json';
-        // Determine data format
-        if (isset($input['xml']) && $input['xml'] === 'true') {
-            $this->dataFormat = 'xml';
-        }
-
-        if (isset($input['latest']) && $input['latest'] === 'true') {
-            $magnetometers = $this->controller->getLatest();
-            $this->printResult($magnetometers);
-            die;
-        }
-
-        if (isset($input['all']) && $input['all'] === 'true') {
-            $magnetometers = $this->controller->getAll();
-            $this->printResult($magnetometers);
-            die;
-        }
-
-        $i = 0;
-        $fetch = [];
-        while (isset($input['values'][$i])) {
-            if (is_numeric($input['values'][$i])) {
-                $fetch[] = strip_tags(htmlspecialchars($input['values'][$i]));
+        try {
+            $magnetometers = [];
+            $this->dataFormat = 'json';
+            // Determine data format
+            if (isset($input['xml']) && $input['xml'] === 'true') {
+                $this->dataFormat = 'xml';
             }
-            $i++;
-        }
-        if (empty($fetch)) {
-            $this->printError('No values provided.');
-            die;
+
+            if (isset($input['latest']) && $input['latest'] === 'true') {
+                $magnetometers = $this->controller->getLatest();
+                $this->printResult($magnetometers);
+                exit();
+            }
+
+            if (isset($input['all']) && $input['all'] === 'true') {
+                $magnetometers = $this->controller->getAll();
+                $this->printResult($magnetometers);
+                exit();
+            }
+
+            $i = 0;
+            $fetch = [];
+            while (isset($input['values'][$i])) {
+                if (is_numeric($input['values'][$i])) {
+                    $fetch[] = strip_tags(htmlspecialchars($input['values'][$i]));
+                }
+                $i++;
+            }
+            if (empty($fetch)) {
+                $this->printError('No values provided.');
+                exit();
+            }
+
+            // Fetch magnetometer entries
+            $magnetometers = $this->controller->getObjectsFromIds($fetch);
+            if (empty($magnetometers)) {
+                $this->printError('No matching magnetometer entries found.');
+                exit();
+            }
+            $this->printResult($magnetometers);
+        } catch (Exception  $exception) {
+            http_response_code(400);
+            exit();
         }
 
-        // Fetch magnetometer entries
-        $magnetometers = $this->controller->getObjectsFromIds($fetch);
-        if (empty($magnetometers)) {
-            $this->printError('No matching magnetometer entries found.');
-            die;
-        }
-
-        $this->printResult($magnetometers);
     }
 
     private function printResult($magnetometers)
@@ -90,6 +94,7 @@ class API
 
     private function printError($error)
     {
+        http_response_code(400);
         if ($this->dataFormat === 'xml') {
             $this->xmlPrint(['error' => $error]);
         } else {
@@ -104,14 +109,13 @@ class API
             echo json_encode($array['error']);
         } else {
             $json = [];
-            foreach($array as $entry)
-            {
+            foreach ($array as $entry) {
                 $entryArray = [
-                    'id' =>             $entry->getId(),
-                    'timestamp' =>      $entry->getTimestamp(),
-                    'value'=>           $entry->getValue(),
-                    'temp' =>           $entry->getTemp(),
-                    'lastModified' =>   $entry->getLastModified()
+                    'id' => $entry->getId(),
+                    'timestamp' => $entry->getTimestamp(),
+                    'value' => $entry->getValue(),
+                    'temp' => $entry->getTemp(),
+                    'lastModified' => $entry->getLastModified()
                 ];
                 array_push($json, $entryArray);
             }
@@ -121,40 +125,24 @@ class API
 
     private function xmlPrint($array)
     {
-        header("Content-type: text/xml");
+        header('Content-type: text/xml');
         echo '<?xml version="1.0" encoding="UTF-8"?>';
-        if (isset($array['error'])) {
-            ?>
-            <error>
-                <?= $array['error'] ?>
-            </error>
-            <?php
-        } else {
+        if (isset($array['error'])):
+            echo "<error>{$array['error']}</error>";
+        else:
             echo '<magnetometers>';
-            foreach ($array as $magnetometer) {
-                if (!empty($magnetometer)) {
-                    ?>
-                    <magnetometer>
-                        <id>
-                            <?= $magnetometer->getId(); ?>
-                        </id>
-                        <timestamp>
-                            <?= $magnetometer->getTimestamp(); ?>
-                        </timestamp>
-                        <value>
-                            <?= $magnetometer->getValue(); ?>
-                        </value>
-                        <temp>
-                            <?= $magnetometer->getTemp(); ?>
-                        </temp>
-                        <lastmodified>
-                            <?= $magnetometer->getLastModified(); ?>
-                        </lastmodified>
-                    </magnetometer>
-                    <?php
-                }
-            }
+            foreach ($array as $magnetometer):
+                if (!empty($magnetometer)):
+                    echo '<magnetometer>';
+                    echo "<id>{$magnetometer->getId()}</id>";
+                    echo "<timestamp>{$magnetometer->getTimestamp()}</timestamp>";
+                    echo "<value>{$magnetometer->getValue()}</value>";
+                    echo "<temp>{$magnetometer->getTemp()}</temp>";
+                    echo "<lastmodified>{$magnetometer->getLastModified()}</lastmodified>";
+                    echo '</magnetometer>';
+                endif;
+            endforeach;
             echo '</magnetometers>';
-        }
+        endif;
     }
 }

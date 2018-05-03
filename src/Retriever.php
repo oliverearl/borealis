@@ -33,7 +33,7 @@ class Retriever
             return self::$instance;
     }
 
-    public function __construct()
+    private function __construct()
     {
         $this->host =           Config::getConfigEntry('magnetometer_hostname');
         $this->username =       Config::getConfigEntry('magnetometer_username');
@@ -90,6 +90,7 @@ class Retriever
             $_SESSION['errors'][] = 'record_missing';
             return null;
         } catch (Exception $exception) {
+            echo $exception;
             Magneto::error('magentometer_failure', $exception);
             self::$instance = null;
             return null;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name='HTTP_ACCEPT_LANGUAGE' value='en' />
+    </php>
+</phpunit>

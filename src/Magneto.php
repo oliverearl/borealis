@@ -43,7 +43,7 @@ class Magneto
         $this->database =           Connector::getInstance();
 
         $this->renderer =           new Renderer();
-        $this->retriever =          new Retriever();
+        $this->retriever =          Retriever::getInstance();
 
         $this->start();
     }

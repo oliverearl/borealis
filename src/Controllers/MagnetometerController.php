@@ -130,7 +130,7 @@ class MagnetometerController
     {
         $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id ASC');
         if ($limit1) {
-            $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id ASC LIMIT 1');
+            $stmt = $this->db->prepare('SELECT * FROM magneto_meter ORDER BY id DESC LIMIT 1');
         }
         $stmt->execute();
         $entries = $stmt->fetchAll();

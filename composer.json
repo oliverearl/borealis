@@ -1,28 +1,41 @@
 {
   "name": "ole4/magneto",
-  "description": "TBD",
+  "description": "Data collation and graphing tool with API for magnetometer data.",
   "authors": [
     {
       "name": "Oliver Earl",
       "email": "ole4@aber.ac.uk"
     }
   ],
-  "keywords": [],
+  "keywords": [
+    "magnetometer",
+    "magnetosphere",
+    "magnetic field",
+    "solar activity",
+    "web application",
+    "chart.js",
+    "api",
+    "graphing"
+  ],
+  "homepage": "https://bitbucket.org/oliverearl/mmp/src",
   "license": "MIT",
-  "type": "",
+  "type": "application",
   "require": {
+    "php": "^5.6 || ^7.0",
     "monolog/monolog": "^1.0",
     "twig/twig": "~1.0",
     "sgrabaum/smb": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "^5.0",
+    "phpmd/phpmd" : "@stable"
   },
   "autoload": {
     "psr-4": {
       "ole4\\Magneto\\": "src/",
       "ole4\\Magneto\\Config\\": "src/Config",
-      "ole4\\Magneto\\Functions\\": "src/Functions",
+      "ole4\\Magneto\\Database\\": "src/Config",
+      "ole4\\Magneto\\Controllers\\": "src/Controllers",
       "ole4\\Magneto\\i18n\\": "src/i18n",
       "ole4\\Magneto\\Models\\": "src/Models",
       "ole4\\Magneto\\Tests\\": "tests/"
@@ -32,5 +45,10 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "optimize-autoloader": true
+  },
+  "scripts": {
+    "test" : "phpunit --testdox",
+    "test-verbose": "phpunit --verbose",
+    "seed": "@php seed.php"
   }
 }

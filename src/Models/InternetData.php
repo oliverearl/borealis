@@ -8,6 +8,11 @@
 
 namespace ole4\Magneto\Models;
 
+/**
+ * Class InternetData
+ * @package ole4\Magneto\Models
+ * @author Oliver Earl <ole4@aber.ac.uk>
+ */
 class InternetData extends DataSource
 {
 }

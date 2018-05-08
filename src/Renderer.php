@@ -15,14 +15,37 @@ use ole4\Magneto\Controllers\MagnetometerController;
  * Class Renderer
  * @package ole4\Magneto
  * @author Oliver Earl <ole4@aber.ac.uk>
- * TODO: PHPDoc
+ *
+ * The Renderer class is a large God-class that consists of hybrid rendering and routing functionality.
+ * While an unusual decision, it was to ensure that data could properly be injected into the Twig view
+ * and separate concerns properly depending on the webpage and on GET/POST data.
+ *
+ * This class contains numerous methods pertaining to rendering and Twig, routing HTTP requests, and handling
+ * additional GET/POST data.
  */
 class Renderer
 {
+    /**
+     * Twig (1/2)
+     * @var Twig_Loader_Filesystem
+     */
     private $twigEnv;
+
+    /**
+     * Twig (2/2)
+     * @var Twig_Environment
+     */
     private $twig;
+
+    /**
+     * MagnetometerController for retrieving specially crafted data from the database.
+     * @var MagnetometerController
+     */
     private $magnetometer;
 
+    /**
+     * Template Directory filepath
+     */
     const TEMPLATE_DIR = __DIR__ . '/../templates';
 
     /**
@@ -49,6 +72,17 @@ class Renderer
         $this->magnetometer = new MagnetometerController();
     }
 
+    /**
+     * Routing Mega Method
+     * This method has two primary responsibilites. Switch on the GET['page'] value, and then in each
+     * appropriate case inject the required data and instruct Twig to render the page. If no GET['page'] is
+     * found then the homepage is loaded. This is probably one of the neatest ways to get around the lack of
+     * a rewrite engine and pretty URLs.
+     *
+     * For example, if the user navigates to GET['page'] = graph, a lot of additional data will be loaded.
+     * Most of this data is harvested from the additionalData() sister method before using its findings
+     * to do database enquiries.
+     */
     public function route()
     {
         if (isset($_GET['page'])) {
@@ -121,6 +155,16 @@ class Renderer
         }
     }
 
+    /**
+     * Load Page
+     * @param $page
+     * @param array $params
+     * This method is a wrapper method for the Twig render function. It will load
+     * the specified Twig template file, and pass an array as parameters to inject
+     * into the view. The Bootstrap alerts are then reset.
+     *
+     * If an error occurs, the error handler is called.
+     */
     private function loadPage($page, $params = [])
     {
         try
@@ -134,6 +178,18 @@ class Renderer
         }
     }
 
+    /**
+     * Additional Data
+     * @return array
+     *
+     * This large method determines whether or not there exists additional data stored in either POST or GET.
+     * When data is found in either POST or GET, and under the maximum allowed values, it is then iterated
+     * through the defined number of times which builds an array of sanitised IDs. These IDs are then used
+     * back in the route() method for firing off calls to other methods using the IDs as parameters for
+     * Magnetometer object retrieval, etc.
+     *
+     * If no data is provided, then a blank array is returned.
+     */
     private function additionalData()
     {
         $testingArray = [];
@@ -163,6 +219,14 @@ class Renderer
         return $newArray;
     }
 
+    /**
+     * Register Globals
+     * Twig has the ability to register global variables (not true globals, only global in a Twig context)
+     * that are available in all views and do not need to be painstakingly injected in each switch case.
+     *
+     * The data injected includes the config, database instance, language and locale, the CSRF token, and
+     * any accumulated errors and success dialogues that are to be rendered into Bootstrap alerts.
+     */
     private function registerGlobals()
     {
         $this->twig->addGlobal('config', Config::getConfig());
@@ -175,6 +239,14 @@ class Renderer
         $this->twig->addGlobal('successes', $this->addSession('successes'));
     }
 
+    /**
+     * Add Session
+     * @param $session
+     * @return array|null
+     * This method is used to add session data, either successes or errors, to the view without the need for
+     * multiple methods.
+     * If it is called and there is nothing for it to do, it returns null.
+     */
     private function addSession($session)
     {
         if (isset($_SESSION[$session])) {
@@ -184,6 +256,12 @@ class Renderer
         else return null;
     }
 
+    /**
+     * Reset Session
+     * The application uses a small timer to determine how long success and error messages should be
+     * displayed for to ensure that they are displayed at least once. This method records the current
+     * time if it is not present, and unsets it once the time has expired.
+     */
     private function resetSession()
     {
         if (isset($_SESSION['errors']) || isset($_SESSION['successes'])) {
@@ -197,6 +275,14 @@ class Renderer
         }
     }
 
+    /**
+     * API Path Builder
+     * @param $ids
+     * @return string
+     * TODO: Fix URI-Too-Long Bug
+     * The API path builder builds a long URL that is injected into the view in order to enable the
+     * Export JSON/XML functionality.
+     */
     private function apiPathBuilder($ids)
     {
         $pathToApi = 'api.php?';
@@ -208,6 +294,14 @@ class Renderer
         return $pathToApi;
     }
 
+    /**
+     * Settings Watchdog
+     * @return bool|null
+     *
+     * This method watches for $_POST data containing maxElements. If it is valid input, the config
+     * will be changed and a success notification added. On failure, an error.
+     * Returns true on success, null on failure.
+     */
     private function settingsWatchdog()
     {
         if (isset($_POST['maxElements']) && is_numeric($_POST['maxElements'])) {

@@ -1,4 +1,4 @@
-Borealis Application
+Borealis Application - Major Project CS39440
 ***********************
 Oliver Earl
 ole4@aber.ac.uk
@@ -46,6 +46,8 @@ well as the settings file
 templates - Source code
 tests - PHPUnit tests
 vendor - 3rd-party libraries, tools provided by Composer
+
+Do not worry about the blank index.html files - they are there to prevent directory navigation.
 ***********************
 Running Tests
 ***********************

@@ -13,13 +13,44 @@ if (isset($_GET)) {
     http_response_code(400);
 }
 
+/**
+ * Class API
+ * @author Oliver Earl <ole4@aber.ac.uk>
+ * This is the API class, responsible for allowing programmatic access to the web application and serves as
+ * the secondary entry-point for the program.
+ */
 class API
 {
+    /**
+     * Config instance
+     * @var array|null
+     */
     private $config;
+
+    /**
+     * Database instance
+     * @var PDO
+     */
     private $db;
+
+    /**
+     * MagnetometerController instance
+     * @var MagnetometerController
+     */
     private $controller;
+
+    /**
+     * Determines whether the program returns JSON or XML
+     * @var string
+     */
     private $dataFormat;
 
+    /**
+     * API constructor.
+     * @param $input
+     *
+     * Initially configures the request and puts into motion the received request
+     */
     public function __construct($input)
     {
         if (empty($input)) {
@@ -34,6 +65,26 @@ class API
         $this->handleRequest($input);
     }
 
+    /**
+     * Handle Request
+     * @param $input
+     * The first thing this method does is determine whether or not the user wishes to see JSON or XML as
+     * the format of choice for their results.
+     *
+     * Afterwards, it checks for the 'latest' entry. If so, it will retrieve the latest magnetometer entry
+     * and ignore all other input before closing. It does the same thing for 'all' following that.
+     *
+     * If the program gets this far without the aforementioned special commands, it will count how many
+     * 'values' variables there are - only stopping to iterate once it reaches the end. The issue however is
+     * that it counts sequentially, so while 0-10 will work, a missing eleven will also spell the end
+     * for twelve.
+     *
+     * After building an array and performing sanitisation to ensure data is trustworthy, data retrieval
+     * is carried out and the results are printed.
+     *
+     * Should an error be encountered along the way, the appropriate error handling routine is called - often
+     * presenting users with an Error 400.
+     */
     private function handleRequest($input)
     {
         try {
@@ -83,6 +134,12 @@ class API
 
     }
 
+    /**
+     * Print Result
+     * @param $magnetometers
+     * Depending on whether XML or JSON is chosen as the format, it passes the
+     * retrieved object array onto the appropriate method.
+     */
     private function printResult($magnetometers)
     {
         if ($this->dataFormat === 'xml') {
@@ -92,6 +149,10 @@ class API
         }
     }
 
+    /**
+     * Prints an error message, and provides a 400 error code.
+     * @param $error
+     */
     private function printError($error)
     {
         http_response_code(400);
@@ -102,6 +163,12 @@ class API
         }
     }
 
+    /**
+     * JSON Print
+     * @param $array
+     * Iterates through the array of magnetometer entries, fetching their values using children methods to
+     * build a new array that can be encoded into JSON and echoed.
+     */
     private function jsonPrint($array)
     {
         header("Content-Type: application/json; charset=UTF-8");
@@ -123,6 +190,12 @@ class API
         }
     }
 
+    /** XML Print
+     * @param $array
+     * Iterates through the array of magnetometer entries and directly echoes their values into XML.
+     *
+     * Not the cleanest piece of code I have ever written, but it works.
+     */
     private function xmlPrint($array)
     {
         header('Content-type: text/xml');

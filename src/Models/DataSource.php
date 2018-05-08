@@ -8,6 +8,11 @@
 
 namespace ole4\Magneto\Models;
 
+/**
+ * Class DataSource
+ * @package ole4\Magneto\Models
+ * @author Oliver Earl <ole4@aber.ac.uk>
+ */
 abstract class DataSource
 {
 }

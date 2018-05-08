@@ -60,7 +60,6 @@ class Connector
      */
     private static function setInstance()
     {
-        // TODO: Change to configure database programmatically
         $config = Config::getConfig();
         try {
             $dsn = "{$config['dbType']}:host={$config['hostname']};dbname={$config['dbName']}";

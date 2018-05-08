@@ -87,6 +87,7 @@ class API
      */
     private function handleRequest($input)
     {
+        // TODO: Fix Error 400 Bad Request with POST Bug
         try {
             $magnetometers = [];
             $this->dataFormat = 'json';

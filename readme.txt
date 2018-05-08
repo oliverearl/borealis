@@ -59,10 +59,11 @@ Running Linter
 You will need Composer - run the command 'composer lint' to run PHPMD.
 It will output to stdout so output can be piped.
 ***********************
-Running phpDocumentor
+Viewing phpDocumentor Documentation
 ***********************
-You will need Composer - run the command 'composer docu' to run phpDocumentor.
-Documentation will be stored in the 'doc' directory.
+Navigate to the docs folder, and open index.html in your web browser.
+If the folder is missing, download the phpDocumentor PHAR from http://docs.phpdoc.org/getting-started/installing.html
+to generate documentation.
 ***********************
 Troubleshooting
 ***********************

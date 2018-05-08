@@ -49,6 +49,7 @@
   "scripts": {
     "test" : "phpunit --testdox",
     "test-verbose": "phpunit --verbose",
-    "seed": "@php seed.php"
+    "seed": "@php seed.php",
+    "lint": "@php ./vendor/phpmd/phpmd/src/bin/phpmd src/ text cleancode,codesize,controversial,design,naming,unusedcode"
   }
 }

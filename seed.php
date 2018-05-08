@@ -7,7 +7,10 @@ date_default_timezone_set('Europe/London');
 use Icewind\SMB\Server;
 use ole4\Magneto\Models\Magnetometer;
 
-$server = new Server('imapspc0017.imaps.aber.ac.uk', 'imaps\ole4', '***REMOVED***');
+$username = 'imaps\yourusernamehere';
+$password = 'yourpasswordhere';
+
+$server = new Server('imapspc0017.imaps.aber.ac.uk', $username, $password);
 $share = $server->getShare('magdata');
 $tempFile = __DIR__ . '/storage/csv/temp.csv';
 

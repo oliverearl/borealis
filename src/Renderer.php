@@ -54,6 +54,7 @@ class Renderer
         if (isset($_GET['page'])) {
             switch(strtolower($_GET['page'])) {
                 case 'settings':
+                    $settings =     $this->settingsWatchdog();
                     $this->loadPage('settings');
                     break;
                 case 'about':
@@ -205,5 +206,18 @@ class Renderer
             $i++;
         }
         return $pathToApi;
+    }
+
+    private function settingsWatchdog()
+    {
+        if (isset($_POST['maxElements']) && is_numeric($_POST['maxElements'])) {
+            if ($_POST['maxElements'] > 0 && $_POST['maxElements'] <= 100) {
+                $_SESSION['successes'][] = 'setting_changed';
+                Config::updateConfigEntry('maxElements', $_POST['maxElements']);
+                return true;
+            }
+            $_SESSION['errors'][] = 'settingFail';
+            return null;
+        }
     }
 }

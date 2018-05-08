@@ -1,0 +1,17 @@
+{% extends "master.php.twig" %}
+{% block title %}{{ locale.settings.title }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{ locale.settings.title }}</h1>
+            </div>
+            <form id="navigator" class="form-control" action="index.php?page=settings" method="POST">
+                <label class="form-control" for="maxElements">{{ locale.settings.maxElements }}</label>
+                <input class="form-control" type="number" name="maxElements" id="maxElements" value="{{ config['maxElements'] }}" min="1" max="100" required>
+                <input class="form-control" type="submit" name="submit" id="submit" value="Submit">
+                <input type="hidden" name="csrf_check" id="csrf_check" value="{{ csrf }}">
+            </form>
+        </main>
+    </div>
+{% endblock %}

@@ -1,108 +1,116 @@
 {
   "english": "English",
-  "welsh": "Welsh",
-  "unimplemented": "Unimplemented",
-  "application": "Application",
-  "view": "View",
-  "exportJSON": "Export JSON",
-  "exportXML": "Export XML",
-  "january": "January",
-  "february": "February",
-  "march": "March",
-  "april": "April",
-  "may": "May",
-  "june": "June",
-  "july": "July",
-  "august": "August",
-  "september": "September",
-  "october": "October",
-  "november": "November",
-  "december": "December",
-  "deleteEntry": "Delete Entry",
+  "welsh": "Cymraeg",
+  "unimplemented": "Heb ei ategu",
+  "application": "Cais",
+  "view": "Gweld",
+  "exportJSON": "Allforio JSON",
+  "exportXML": "Allforio XML",
+  "january": "Ionawr",
+  "february": "Chwefror",
+  "march": "Mawrth",
+  "april": "Ebrill",
+  "may": "Mai",
+  "june": "Mehefin",
+  "july": "Gorffennaf",
+  "august": "Awst",
+  "september": "Medi",
+  "october": "Hydref",
+  "november": "Tachwedd",
+  "december": "Rhagfyr",
+  "deleteEntry": "Dileu Mynediad",
   "app": {
-    "homepage": "Homepage",
-    "about": "About Program",
-    "settings": "Settings"
+    "homepage": "Hafan",
+    "about": "Amdanom ni Rhaglen",
+    "settings": "Gosodiadau"
   },
-  "error": "Error:",
-  "success": "Success:",
+  "error": "Gwall:",
+  "success": "Llwyddiant:",
   "successes": {
-    "record_retrieved": "The latest record has been successfully pulled from the magnetometer."
+    "record_retrieved": "Mae'r record ddiweddaraf wedi'i dynnu'n llwyddiannus o'r magnetomedr.",
+    "setting_changed": "Newidiodd y gosodiadau yn llwyddiannus."
   },
   "errors": {
-    "record_exists": "The latest magnetometer record already exists in the database.",
-    "record_missing": "The magnetometer record set to be retrieved today appears to be missing or inaccessible.",
-    "magnetometer_failure": "Failure attempting to retrieve data from the magnetometer.",
-    "logger_failure": "The system logging functionality has failed.",
-    "database_failure": "A connection to the database cannot be established.",
-    "locale_failure": "A locale error has occurred.",
-    "locale_json_failure": "The locale JSON is corrupted or malformed.",
-    "locale_json_missing": "The locale JSON is missing or inaccessible.",
-    "override_failure": "Magnetometer data could not be manually retrieved.",
-    "renderer_failure": "The templating system failured to render.",
-    "general": "An error has occurred. Since this is production mode, the info is hidden, just let the dev know!",
-    "javascript": "This program requires JavaScript enabled to run.",
-    "noDataFound": "No Data Found",
-    "noDataSelected": "No Data Selected"
+    "record_exists": "Mae'r record magnetometr diweddaraf yn bodoli eisoes yn y gronfa ddata.",
+    "record_missing": "Ymddengys bod y record magnetomedr a bennir i'w gael heddiw yn goll neu'n anhygyrch.",
+    "magnetometer_failure": "Methiant yn ceisio adennill data o'r magnetomedr.",
+    "logger_failure": "Mae'r swyddogaeth logio system wedi methu.",
+    "database_failure": "Ni ellir sefydlu cysylltiad â'r gronfa ddata.",
+    "locale_failure": "Mae gwall lleol wedi digwydd.",
+    "locale_json_failure": "Mae'r JSON locale ar goll neu wedi'i ddifrodi.",
+    "locale_json_missing": "Mae'r JSON locale ar goll neu'n anhygyrch.",
+    "override_failure": "Ni ellid adennill data magnetnetau â llaw.",
+    "renderer_failure": "Methodd y system dwyllodrus rendro.",
+    "general": "Mae gwall wedi digwydd. Gan mai dyma'r modd cynhyrchu hwn, mae'r wybodaeth yn gudd, dim ond gadael i'r dev wybod!",
+    "javascript": "Mae angen JavaScript ar y rhaglen hon i redeg.",
+    "noDataFound": "Ni chanfuwyd unrhyw ddata.",
+    "noDataSelected": "Dim data wedi'i ddewis.",
+    "settingFail": "Lleoliadau newid methiant."
   },
   "debugger": {
-    "debugMode": "Graphing Tool Debugger",
-    "debugInfo": "Because the program is running in debug mode, extra information on retrieved data is available. Please make sure this mode is disabled before going into production!",
-    "parameterIds": "IDs of Parameters",
-    "retrieved" : "Retrieved Magnetometer Objects",
-    "chartjs" : "Chart.js JSON"
+    "debugMode": "Diffygydd Offeryn Graffio",
+    "debugInfo": "Oherwydd bod y rhaglen yn rhedeg yn y modd dadleuol, mae gwybodaeth ychwanegol ar ddata a adferwyd ar gael. Gwnewch yn siŵr bod y modd hwn yn anabl cyn mynd i mewn i gynhyrchu!",
+    "parameterIds": "IDau o Paramedrau",
+    "retrieved" : "Wedi Cael Gwrthrychau Magnetomedr",
+    "chartjs" : "JSON Chart.js"
   },
   "home": {
     "title": "Dashboard",
-    "subtitle": "Required Declaration:",
-    "introduction": "The information provided on this and other pages by me, Oliver Earl (ole4@aber.ac.uk), is under my own personal responsibility and not that of the Aberystwyth University. Similarly, any opinions expressed are my own and are in no way to be taken as those of Aberystwyth University.",
-    "welsh-notice": "Machine Translation",
-    "welsh-text": "The Welsh used in this program is not currently accurate, as machine translations are currently used as placeholders."
+    "subtitle": "Datganiad Angenrheidiol:",
+    "introduction": "Mae'r wybodaeth a ddarperir ar y tudalennau hyn a thudalennau eraill gennyf, Oliver Earl (ole4@aber.ac.uk), o dan fy nghyfrifoldeb personol fy hun ac nid i Brifysgol Aberystwyth. Yn yr un modd, mae unrhyw farn a fynegir yn fy mhen fy hun ac nid ydynt mewn unrhyw fodd i'w cymryd fel rhai Prifysgol Aberystwyth.",
+    "welshNotice": "Cyfieithu Peiriant",
+    "welshText": "Nid yw'r Gymraeg a ddefnyddir yn y rhaglen hon ar hyn o bryd yn gywir, gan fod cyfieithiadau peiriannau yn cael eu defnyddio ar hyn o bryd fel llewyrdd."
   },
   "about" : {
-    "title": "About",
-    "introduction": "Introduction",
-    "p1": "",
-    "functionality": "What can Borealis do?",
-    "libraries": "Libraries used:",
-    "limitations": "Known Issues:",
-    "unimplemented": "Unimplemented Functionality"
+    "title": "Amdanom ni",
+    "introduction": "Cyflwyniad",
+    "p1": "Borealis gais ar y we sy'n adfer data o'r magnetomedr FGM-3 sy'n cael ei storio ar Fferm Frongoch a'i gwneud ar gael yma ar gyfer gwylio graffigol neu tablau neu ei allforio fel JSON neu XML.",
+    "libraries": "Llyfrgelloedd a ddefnyddiwyd:",
+    "p2" :"Bootstrap, jQuery, Chart.js, Composer, Logger, Twig, Sgrabaum/SMB (Icewind/SMB), PHPUnit, PHPMD",
+    "limitations": "Materion Perthnasol:",
+    "p3": "Efallai y bydd adfer magnetomedr yn digwydd dro ar ôl tro, neu ddim o gwbl. Efallai y bydd symiau eithriadol o fawr o ddata yn gwrthod eu hallforio. Gallai API gael trafferth i ddeall ceisiadau POST. (Rhowch gynnig ar GET yn y cyfamser.)",
+    "unimplemented": "Swyddogaethol heb ei Atodi:",
+    "p4": "Adalw Data Radio / Radio Amatur a Data Rhyngrwyd (ESA)."
   },
   "magnetometer": {
-    "title": "Magnetometer",
-    "description": "Data entries returned from the magnetometer can be viewed here and sent to either the Graphing Tool, or displayed as tabular data. As there might be times where choosing multiple of the same entry is desired, this functionality is left intact. The magnetometer takes hundreds of readings each day, so this tool provides an average for both value and temperature from that day to compensate for such a large set of data. Dramatic shifts in magnetosphere strength or temperature of the device caused by solar event, harsh weather, or otherwise should nevertheless still be reflected within the data.",
-    "changeEntries": "Dynamic entries are currently unimplemented. If you want to change the number of entries, you can do so from the <a href=\"index.php?page=settings\">Settings</a> page.",
-    "latestEntry": "Latest Entry",
-    "displayAll": "Display All",
-    "navigateEntries": "Navigate Entries",
-    "databaseEntries": "Database Entries",
-    "addEntry": "Add Magnetometer Entry",
-    "entry": "Magnetometer Entry"
+    "title": "Magnetomedr",
+    "description": "Gellir gweld y cofnodion data a ddychwelwyd o'r magnetomedr yma a'u hanfon at y Offeryn Graffio, neu eu harddangos fel data tabl. Gan y gallai fod amseroedd lle mae dewis lluosog o'r un mynediad yn ddymunol, mae'r swyddogaeth hon wedi'i adael yn gyfan. Mae'r magnetomedr yn cymryd cannoedd o ddarlleniadau bob dydd, felly mae'r offeryn hwn yn darparu cyfartaledd ar gyfer gwerth a thymheredd o'r diwrnod hwnnw i wneud iawn am set mor fawr o ddata. Er hynny, dylai sifftiau dramatig mewn cryfder neu tymheredd magnetosffer y ddyfais a achosir gan ddigwyddiad solar, tywydd garw, neu fel arall, gael eu hadlewyrchu o fewn y data.",
+    "changeEntries": "Nid yw cofnodion dynamig wedi'u hychwanegu ar hyn o bryd. Os ydych chi eisiau newid nifer y cofnodion, gallwch wneud hynny o'r <a href=\"index.php?page=settings\">dudalen Gosodiadau.</a>.",
+    "latestEntry": "Mynediad Diweddaraf",
+    "displayAll": "Arddangos popeth",
+    "navigateEntries": "Mynd i'r Ymgeisydd",
+    "databaseEntries": "Cofrestrfeydd Cronfa Ddata",
+    "addEntry": "Ychwanegu Mynediad Magnetomedr",
+    "entry": "Mynediad Magnetomedr"
   },
   "radio": {
     "title": "Radio",
-    "data": "Radio Data",
-    "addEntry": "Add Radio Entry"
+    "data": "Data Radio",
+    "addEntry": "Ychwanegu Mynediad Radio"
   },
   "graph": {
-    "title": "Graphing Tool",
-    "loadTool": "Load Graphing Tool",
-    "barView": "Bar View",
-    "lineView": "Line View"
+    "title": "Offeryn Graffio",
+    "loadTool": "Llwytho Offer Graffio",
+    "barView": "Siart Bar",
+    "lineView": "Siart Llinell"
   },
   "table": {
-    "title": "Tabular Data",
-    "loadTool": "Load Tables Only",
-    "id": "Unique ID",
-    "date": "Date Recorded",
-    "value": "Magnetometer Value",
-    "temp": "Instrument Temperature",
-    "unix": "UNIX Timestamp",
-    "labview": "labVIEW Timestamp"
+    "title": "Data Tabl",
+    "loadTool": "Llwyth Tablau yn Unig",
+    "id": "ID unigryw",
+    "date": "Dyddiad cofnodi",
+    "value": "Gwerth Magnetomedr",
+    "temp": "Tymheredd offeryn",
+    "unix": "Amserlen UNIX",
+    "labview": "Amserlen UNIX LabVIEW"
   },
   "esa": {
     "title": "ESA",
-    "data": "ESA Data",
-    "addEntry": "Add ESA Entry"
+    "data": "Data ESA",
+    "addEntry": "Ychwanegu Mynediad ESA"
+  },
+  "settings": {
+    "title": "Gosodiadau",
+    "maxElements": "Yr Elfennau Uchafswm"
   }
 }

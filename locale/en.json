@@ -1,6 +1,6 @@
 {
   "english": "English",
-  "welsh": "Welsh",
+  "welsh": "Cymraeg",
   "unimplemented": "Unimplemented",
   "application": "Application",
   "view": "View",
@@ -27,7 +27,8 @@
   "error": "Error:",
   "success": "Success:",
   "successes": {
-    "record_retrieved": "The latest record has been successfully pulled from the magnetometer."
+    "record_retrieved": "The latest record has been successfully pulled from the magnetometer.",
+    "setting_changed": "Settings changed successfully."
   },
   "errors": {
     "record_exists": "The latest magnetometer record already exists in the database.",
@@ -43,7 +44,8 @@
     "general": "An error has occurred. Since this is production mode, the info is hidden, just let the dev know!",
     "javascript": "This program requires JavaScript enabled to run.",
     "noDataFound": "No Data Found",
-    "noDataSelected": "No Data Selected"
+    "noDataSelected": "No Data Selected",
+    "settingFail": "Failure changing settings."
   },
   "debugger": {
     "debugMode": "Graphing Tool Debugger",
@@ -56,17 +58,19 @@
     "title": "Dashboard",
     "subtitle": "Required Declaration:",
     "introduction": "The information provided on this and other pages by me, Oliver Earl (ole4@aber.ac.uk), is under my own personal responsibility and not that of the Aberystwyth University. Similarly, any opinions expressed are my own and are in no way to be taken as those of Aberystwyth University.",
-    "welsh-notice": "Machine Translation",
-    "welsh-text": "The Welsh used in this program is not currently accurate, as machine translations are currently used as placeholders."
+    "welshNotice": "Machine Translation",
+    "welshText": "The Welsh used in this program is not currently accurate, as machine translations are currently used as placeholders."
   },
   "about" : {
     "title": "About",
     "introduction": "Introduction",
-    "p1": "",
-    "functionality": "What can Borealis do?",
+    "p1": "Borealis is a web application that retrieves data from the FGM-3 magnetometer stored on Frongoch Farm and makes it available here for graphical or tabular viewing or export as JSON or XML.",
     "libraries": "Libraries used:",
+    "p2" :"Bootstrap, jQuery, Chart.js, Composer, Logger, Twig, Sgrabaum/SMB (Icewind/SMB), PHPUnit, PHPMD",
     "limitations": "Known Issues:",
-    "unimplemented": "Unimplemented Functionality"
+    "p3": "Magnetometer retrieval may happen repeatedly, or not at all. Extremely large amounts of data may refuse to be exported. API might have trouble understanding POST requests. (Try GET in the meantime.)",
+    "unimplemented": "Unimplemented Functionality:",
+    "p4": "Amateur Radio / Radio and Internet Data (ESA) Data Retrieval."
   },
   "magnetometer": {
     "title": "Magnetometer",
@@ -98,11 +102,15 @@
     "value": "Magnetometer Value",
     "temp": "Instrument Temperature",
     "unix": "UNIX Timestamp",
-    "labview": "labVIEW Timestamp"
+    "labview": "LabVIEW Timestamp"
   },
   "esa": {
     "title": "ESA",
     "data": "ESA Data",
     "addEntry": "Add ESA Entry"
+  },
+  "settings": {
+    "title": "Settings",
+    "maxElements": "Max Elements"
   }
 }

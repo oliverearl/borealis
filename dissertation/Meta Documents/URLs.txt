@@ -1,0 +1,100 @@
+https://www.npmjs.com/package/grunt-phplint
+https://www.npmjs.com/package/phplint
+http://www.phptherightway.com/#getting_started
+http://www.phptherightway.com/pages/Design-Patterns.html
+https://lingohub.com/blog/2013/07/php-internationalization-with-gettext-tutorial/
+https://www.keycdn.com/blog/gulp-vs-grunt/
+
+Singleton Pattern in PHP
+http://phpenthusiast.com/blog/the-singleton-design-pattern-in-php
+
+Example Singleton PHP Database Class
+https://gist.github.com/jonashansen229/4534794
+
+Guide to Config files in PHP
+https://www.abeautifulsite.net/a-better-way-to-write-config-files-in-php
+
+PHP - 7.1.0 Visibility Modifiers
+https://secure.php.net/manual/en/language.oop5.constants.php
+
+PHP - trigger_error
+https://secure.php.net/manual/en/function.trigger-error.php
+
+PHP errors
+https://stackoverflow.com/questions/1053424/how-do-i-get-php-errors-to-display
+
+Using Composer Programmatically
+https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
+
+Composer Autoloading
+https://getcomposer.org/doc/06-config.md#autoloader-suffix
+
+Checking PHP Version
+https://gist.github.com/SpekkoRice/694e4e33ee298361b642
+
+Checking if a program exists in PATH with Bash
+https://stackoverflow.com/questions/592620/check-if-a-program-exists-from-a-bash-script
+
+Checking if a file exists using Bash
+https://askubuntu.com/questions/835310/checking-it-see-if-a-file-exists-in-a-script
+
+Basic yes/no prompts in Bash
+https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
+
+Robots.txt
+http://www.robotstxt.org/robotstxt.html
+
+Guide to Twig
+http://wern-ancheta.com/blog/2015/08/31/using-the-twig-templating-engine-in-php/
+
+More on Twig
+https://twig.symfony.com/doc/2.x/templates.html
+
+Twig for templating includes
+https://knpuniversity.com/screencast/twig/including-other-templates
+
+Installing chart.js
+http://www.chartjs.org/docs/latest/getting-started/installation.html
+
+SMB
+http://www.smorgasbork.com/2008/07/23/accessing-smb-servers-with-php/
+
+Code
+https://github.com/icewind1991/SMB/blob/master/example.php
+
+var_dump in Twig
+https://stackoverflow.com/questions/7317438/how-to-var-dump-variables-in-twig-templates
+
+Passing PHP globals to Twig
+https://stackoverflow.com/questions/35161380/how-to-pass-a-php-variable-to-twig-template
+
+Twig Requirements
+https://twig.symfony.com/doc/2.x/intro.html
+
+Twig 2.x. dump()
+https://twig.symfony.com/doc/2.x/functions/dump.html
+
+Raw JSON Twig
+https://stackoverflow.com/questions/12258225/how-to-use-php-json-encode-options-in-twig-file-with-json-encode-twig-function
+
+
+https://www.epochconverter.com/mac
+https://github.com/Seldaek/monolog
+https://phpdelusions.net/pdo/fetch_modes#FETCH_CLASS
+http://php.net/manual/en/function.array-push.php
+https://stackoverflow.com/questions/18701079/build-comma-separated-string-in-php-loop?rq=1
+
+
+errors:
+successes
+record_retrieved
+
+errors
+record_exists
+record_missing
+magnetometer_failure
+logger_failure
+database_failure
+locale_failure
+locale_json_failure
+locale_json_missing

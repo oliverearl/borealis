@@ -1,0 +1,64 @@
+Dates to put in calendar later:
+Outline Project Spec 12th Feb
+Mid Project Demo 14th-21st Mar
+Technical Hand-In + Project Report 4th May
+Final Demo 14th-1st May-June
+
+
+Outline sepc:
+Page 1 title
+2-3 description, work to be tackled, project deliverables
+4 bibliography
+
+
+Contents
+- Title Page
+- Project Desc
+* A few reasonably detailed paragraphs what the project is about. Indicate the substance of the project, those aspects of it that are essential in making it wortwhile
+and the endgoals of the project
+- Proposed Tasks
+* Summarise tasks that will form the major part of your work. Coding techniques, APIs, research reading. Focus on the major items of work. Areas you work on should result
+in outputs, some of which will be deliverables
+- Project Deliverables
+* List key outputs you expect to produce. This includes specified items of working software, any reviews that you see of fundamental importance, documentation for requirements,
+design and testing, the final report
+* Take into account your process - explain these items and highlight when they will be produced
+* What are the requirements?
+- Initial Annotated Bibliography
+(For each of the references used, we want to see a comment. What was the most interesting thing? Provide a comment. What did it contribute?)
+
+
+Mid Project Demonstration 5%
+Final Report and Technical Hand-In 70%
+Final Demonstration 20%
+Initiative / Professionalism 5%
+
+Mid Project Demo
+10 minutes to demonstrate work in progress
+Discuss of progress
+Feedback received
+Demonstration is made to the second marker
+
+Final Report and Technical Hand In
+What have you done?
+- Process used
+- Technical work completed
+- Requirements / Design / Implementation / Testing
+- What have you read?
+- How did it go? Your own assessment
+- Appendices
+
+Final Demo
+- 20-30 mins
+- Not presentation
+- Want to see technical work and examples of code
+- Will be asked questions
+
+Professionalism
+- Judgement made by supervisor about your initiative
+
+Project Diary
+- WordPress
+- Data entries
+- Talk about topics like what you plan to work on, what you succeed in doing, areas of difficulty, reflections on your work, it will help you when writing the final report
+
